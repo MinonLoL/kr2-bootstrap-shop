@@ -299,21 +299,45 @@ textarea:focus-visible {
   box-shadow: 0 0 0 0.25rem rgba(217, 119, 6, 0.2);
 }
 
-/* Подвал (Footer) */
+/* Подвал (Footer) — Высокая контрастность и читаемость */
 footer {
   background-color: var(--gb-primary-dark);
-  color: #94a3b8;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+footer .text-muted {
+  color: #cbd5e1 !important; /* Устраняем конфликт с Bootstrap text-muted на темном фоне */
+}
+
+footer p,
+footer span,
+footer li,
+footer small {
+  color: #cbd5e1;
+}
+
+footer strong {
+  color: #ffffff;
+  font-weight: 700;
 }
 
 footer a {
-  color: #cbd5e1;
+  color: #f1f5f9;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-footer a:hover {
-  color: var(--gb-gold);
+footer a:hover,
+footer a:focus {
+  color: var(--gb-gold-light);
+}
+
+footer h3,
+footer .h6 {
+  color: #ffffff !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 /* Модальное окно */

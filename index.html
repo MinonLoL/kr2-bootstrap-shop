@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Goldabook — адаптивный сайт книжного клуба с подборками, рецензиями читателей и записью на регулярные встречи.">
+  <meta name="author" content="Углев Михаил, ЭФБО-10-25">
+  <title>Goldabook — Главная | Книжный клуб и читательское сообщество</title>
+
+  <!-- Локальное подключение Bootstrap (выполнение повышенного требования без CDN) -->
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  
+  <!-- Собственные стили (подключаются строго после Bootstrap) -->
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+  <!-- Доступность: ссылка для быстрого перехода к контенту -->
+  <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
+
+  <!-- Верхняя информационная полоса (Хедер) -->
+  <header class="bg-dark text-white py-2 border-bottom border-secondary border-opacity-25 small">
+    <div class="container">
+      <div class="row align-items-center g-2">
+        <div class="col-12 col-md-7 text-center text-md-start">
+          <span class="text-warning me-2">★</span>
+          <span>Книжный клуб Goldabook: сезон литературных дискуссий 2026 открыт!</span>
+        </div>
+        <div class="col-12 col-md-5 text-center text-md-end">
+          <span class="badge bg-warning text-dark me-2">ЭФБО-10-25</span>
+          <span class="text-secondary">Углев Михаил • КР №2 / КР №3</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Навигационная панель (Navbar) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" aria-label="Основная навигация">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <img src="images/logo.svg" alt="Логотип книжного клуба Goldabook" height="38">
+      </a>
+      
+      <button 
+        class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#mainNavbar" 
+        aria-controls="mainNavbar" 
+        aria-expanded="false" 
+        aria-label="Переключить навигацию"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="catalog.html">Каталог книг</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="product.html">Книга месяца</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="order.html">Встречи и запись</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contacts.html">Контакты</a>
+          </li>
+          <li class="nav-item dropdown ms-lg-2">
+            <a 
+              class="nav-link dropdown-toggle btn btn-sm btn-outline-warning text-warning px-3 py-1 mt-2 mt-lg-0" 
+              href="#" 
+              id="navbarDropdown" 
+              role="button" 
+              data-bs-toggle="dropdown" 
+              aria-expanded="false"
+            >
+              Подборки клуба
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="catalog.html?genre=classic">Золотая классика</a></li>
+              <li><a class="dropdown-item" href="catalog.html?genre=scifi">Научная фантастика</a></li>
+              <li><a class="dropdown-item" href="catalog.html?genre=dystopia">Антиутопии</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="order.html">Расписание встреч</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#quickOrderModal">Быстрая запись в клуб</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Основной контент страницы -->
+  <main id="main-content">
+    
+    <!-- Hero-блок на 12-колоночной Bootstrap-сетке -->
+    <section class="hero-section text-white">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-12 col-lg-6 text-center text-lg-start">
+            <div class="mb-3">
+              <span class="hero-badge">Литературный клуб • Москва &amp; Онлайн</span>
+            </div>
+            <h1 class="display-4 fw-bold mb-3">
+              Goldabook — читай глубже, обсуждай смелее
+            </h1>
+            <p class="lead text-light opacity-90 mb-4">
+              Атмосферное сообщество читателей. Открываем шедевры мировой литературы, 
+              делимся честными отзывами, находим единомышленников и собираемся на уютные субботние встречи с кофе и книгами.
+            </p>
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start hero-buttons">
+              <a href="catalog.html" class="btn btn-gold btn-lg px-4 shadow">
+                Перейти в каталог
+              </a>
+              <a href="order.html" class="btn btn-outline-light btn-lg px-4">
+                Ближайшая встреча
+              </a>
+            </div>
+            <!-- Быстрые метрики -->
+            <div class="row pt-4 mt-4 border-top border-light border-opacity-25 text-center text-sm-start g-3">
+              <div class="col-4">
+                <div class="h3 fw-bold text-warning mb-0">500+</div>
+                <small class="text-light opacity-75">Участников</small>
+              </div>
+              <div class="col-4">
+                <div class="h3 fw-bold text-warning mb-0">120+</div>
+                <small class="text-light opacity-75">Обсуждений</small>
+              </div>
+              <div class="col-4">
+                <div class="h3 fw-bold text-warning mb-0">4.9</div>
+                <small class="text-light opacity-75">Рейтинг клуба</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 text-center">
+            <div class="position-relative d-inline-block shadow-lg rounded-4 overflow-hidden">
+              <img 
+                src="images/hero-club.svg" 
+                alt="Атмосфера встреч книжного клуба Goldabook" 
+                class="img-fluid rounded-4"
+                width="560" 
+                height="390"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Миссия и преимущества клуба (блок колонок) -->
+    <section class="container my-5 py-3" aria-labelledby="mission-heading">
+      <div class="text-center mb-5">
+        <span class="text-uppercase fw-bold text-warning small tracking-wide">Почему читают с нами</span>
+        <h2 id="mission-heading" class="h1 fw-bold mt-2">Миссия и ценности Goldabook</h2>
+        <p class="text-muted col-lg-6 mx-auto">
+          Мы создали пространство, где чтение превращается из уединённого хобби в живой диалог, вдохновляющие инсайты и тёплую дружбу.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="feature-box text-center">
+            <div class="feature-icon-circle bg-warning bg-opacity-25 text-warning mx-auto">
+              📖
+            </div>
+            <h3 class="h5 fw-bold">Тщательный выбор</h3>
+            <p class="text-muted small mb-0">
+              Голосуем за книги месяца вместе. Выбираем романы с глубокими слоями смысла, актуальными конфликтами и ярким стилем.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="feature-box text-center">
+            <div class="feature-icon-circle bg-primary bg-opacity-10 text-primary mx-auto">
+              ☕
+            </div>
+            <h3 class="h5 fw-bold">Уютные встречи</h3>
+            <p class="text-muted small mb-0">
+              Каждую субботу собираемся в книжном лофте с кофе и выпечкой либо подключаемся через Zoom из любой точки мира.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="feature-box text-center">
+            <div class="feature-icon-circle bg-success bg-opacity-10 text-success mx-auto">
+              🎯
+            </div>
+            <h3 class="h5 fw-bold">Модерация дискуссий</h3>
+            <p class="text-muted small mb-0">
+              Опытные литературоведы готовят вопросы, исторический контекст и направляют беседу, чтобы каждый смог высказаться.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="feature-box text-center">
+            <div class="feature-icon-circle bg-danger bg-opacity-10 text-danger mx-auto">
+              🔄
+            </div>
+            <h3 class="h5 fw-bold">Книжный своп</h3>
+            <p class="text-muted small mb-0">
+              Обмениваемся любимыми изданиями, дарим друг другу прочитанные книги и пополняем клубную библиотеку редкостей.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Подборка месяца (Интерактивная Bootstrap Карусель) -->
+    <section class="bg-white py-5 border-top border-bottom" aria-labelledby="carousel-heading">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4">
+          <div>
+            <span class="badge bg-warning text-dark mb-2">Выбор редакторов</span>
+            <h2 id="carousel-heading" class="h1 fw-bold mb-0">Подборка книг месяца</h2>
+          </div>
+          <a href="catalog.html" class="btn btn-outline-secondary mt-3 mt-md-0">
+            Смотреть весь каталог &rarr;
+          </a>
+        </div>
+
+        <!-- Bootstrap Carousel -->
+        <div id="monthlyBooksCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Слайд 1: Мастер и Маргарита"></button>
+            <button type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide-to="1" aria-label="Слайд 2: 1984"></button>
+            <button type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide-to="2" aria-label="Слайд 3: Дюна"></button>
+          </div>
+
+          <div class="carousel-inner shadow-sm rounded-4">
+            <!-- Слайд 1 -->
+            <div class="carousel-item active carousel-book-item">
+              <div class="row align-items-center g-4 p-lg-4">
+                <div class="col-12 col-md-4 text-center">
+                  <img src="images/book-master.svg" alt="Обложка книги Мастер и Маргарита" class="book-cover-img img-fluid">
+                </div>
+                <div class="col-12 col-md-8">
+                  <div class="d-flex gap-2 mb-2">
+                    <span class="badge bg-success">Обсуждается 8 ноября</span>
+                    <span class="badge bg-warning text-dark">★ 4.95 / 5.0</span>
+                  </div>
+                  <h3 class="display-6 fw-bold">Мастер и Маргарита</h3>
+                  <p class="text-secondary fw-semibold mb-2">Михаил Булгаков • Мистический роман, классика</p>
+                  <p class="text-muted">
+                    Главная книга осеннего сезона. Москва 30-х годов, визит Воланда, вечные вопросы трусости, 
+                    любви и бессмертия творчества. На встрече разберём библейские главы и скрытые сатирические отсылки.
+                  </p>
+                  <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a href="product.html" class="btn btn-gold">Подробнее о книге</a>
+                    <a href="order.html" class="btn btn-outline-dark">Записаться на встречу</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Слайд 2 -->
+            <div class="carousel-item carousel-book-item">
+              <div class="row align-items-center g-4 p-lg-4">
+                <div class="col-12 col-md-4 text-center">
+                  <img src="images/book-1984.svg" alt="Обложка книги 1984" class="book-cover-img img-fluid">
+                </div>
+                <div class="col-12 col-md-8">
+                  <div class="d-flex gap-2 mb-2">
+                    <span class="badge bg-danger">Обсуждается 15 ноября</span>
+                    <span class="badge bg-warning text-dark">★ 4.88 / 5.0</span>
+                  </div>
+                  <h3 class="display-6 fw-bold">1984</h3>
+                  <p class="text-secondary fw-semibold mb-2">Джордж Оруэлл • Антиутопия, социально-политический роман</p>
+                  <p class="text-muted">
+                    Культовое предупреждение человечеству о контроле мыслей, двоемыслии и цензуре. 
+                    На встрече обсудим, как оруэлловские метафоры отзываются в цифровую эпоху XXI века.
+                  </p>
+                  <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a href="product.html" class="btn btn-gold">Подробнее о книге</a>
+                    <a href="order.html" class="btn btn-outline-dark">Записаться на встречу</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Слайд 3 -->
+            <div class="carousel-item carousel-book-item">
+              <div class="row align-items-center g-4 p-lg-4">
+                <div class="col-12 col-md-4 text-center">
+                  <img src="images/book-dune.svg" alt="Обложка книги Дюна" class="book-cover-img img-fluid">
+                </div>
+                <div class="col-12 col-md-8">
+                  <div class="d-flex gap-2 mb-2">
+                    <span class="badge bg-primary">Обсуждается 22 ноября</span>
+                    <span class="badge bg-warning text-dark">★ 4.91 / 5.0</span>
+                  </div>
+                  <h3 class="display-6 fw-bold">Дюна</h3>
+                  <p class="text-secondary fw-semibold mb-2">Фрэнк Герберт • Научная фантастика, эпос</p>
+                  <p class="text-muted">
+                    Великая космоопера об экологии Арракиса, политических интригах Великих Домов и природе лидерства. 
+                    Сравним первоисточник с экранизациями Дени Вильнёва.
+                  </p>
+                  <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a href="product.html" class="btn btn-gold">Подробнее о книге</a>
+                    <a href="order.html" class="btn btn-outline-dark">Записаться на встречу</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Кнопки управления каруселью -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Предыдущий</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Следующий</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Сетка популярных книг (компоненты Bootstrap Card) -->
+    <section class="container my-5 py-2" aria-labelledby="popular-heading">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <span class="text-uppercase fw-bold text-warning small tracking-wide">Библиотека клуба</span>
+          <h2 id="popular-heading" class="h1 fw-bold mb-0">Популярные книги</h2>
+        </div>
+        <a href="catalog.html" class="btn btn-outline-primary">
+          Все книги (6)
+        </a>
+      </div>
+
+      <div class="row g-4">
+        <!-- Карточка 1 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 shadow-sm book-card">
+            <div class="book-cover-wrap">
+              <img src="images/book-master.svg" class="book-cover-img" alt="Обложка: Мастер и Маргарита">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-warning text-dark">Золотая коллекция</span>
+                <span class="rating-stars">★★★★★ <small class="text-muted">(4.95)</small></span>
+              </div>
+              <h3 class="card-title h5 fw-bold mb-1">Мастер и Маргарита</h3>
+              <p class="text-secondary small mb-2">Михаил Булгаков • Роман</p>
+              <p class="card-text text-muted small flex-grow-1">
+                Мистика, философия и сатира. Вечная история любви и рукописей, которые не горят.
+              </p>
+              <div class="d-flex gap-2 mt-3 pt-3 border-top">
+                <a href="product.html" class="btn btn-outline-dark btn-sm flex-fill">Подробнее</a>
+                <button 
+                  type="button" 
+                  class="btn btn-gold btn-sm flex-fill" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#quickOrderModal"
+                  data-book="Мастер и Маргарита"
+                >
+                  В список чтения
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Карточка 2 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 shadow-sm book-card">
+            <div class="book-cover-wrap">
+              <img src="images/book-1984.svg" class="book-cover-img" alt="Обложка: 1984">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-danger">Топ дискуссий</span>
+                <span class="rating-stars">★★★★★ <small class="text-muted">(4.88)</small></span>
+              </div>
+              <h3 class="card-title h5 fw-bold mb-1">1984</h3>
+              <p class="text-secondary small mb-2">Джордж Оруэлл • Антиутопия</p>
+              <p class="card-text text-muted small flex-grow-1">
+                Глубокий анализ тоталитарного контроля, манипуляции правдой и борьбы человека за собственное сознание.
+              </p>
+              <div class="d-flex gap-2 mt-3 pt-3 border-top">
+                <a href="product.html" class="btn btn-outline-dark btn-sm flex-fill">Подробнее</a>
+                <button 
+                  type="button" 
+                  class="btn btn-gold btn-sm flex-fill" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#quickOrderModal"
+                  data-book="1984"
+                >
+                  В список чтения
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Карточка 3 -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 shadow-sm book-card">
+            <div class="book-cover-wrap">
+              <img src="images/book-dune.svg" class="book-cover-img" alt="Обложка: Дюна">
+            </div>
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-primary">Хит месяца</span>
+                <span class="rating-stars">★★★★★ <small class="text-muted">(4.91)</small></span>
+              </div>
+              <h3 class="card-title h5 fw-bold mb-1">Дюна</h3>
+              <p class="text-secondary small mb-2">Фрэнк Герберт • Фантастика</p>
+              <p class="card-text text-muted small flex-grow-1">
+                Масштабнейшая эпопея о пустынной планете, спайсе, пророчествах и судьбе юного Пола Атрейдеса.
+              </p>
+              <div class="d-flex gap-2 mt-3 pt-3 border-top">
+                <a href="product.html" class="btn btn-outline-dark btn-sm flex-fill">Подробнее</a>
+                <button 
+                  type="button" 
+                  class="btn btn-gold btn-sm flex-fill" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#quickOrderModal"
+                  data-book="Дюна"
+                >
+                  В список чтения
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ближайшие встречи клуба -->
+    <section class="bg-light py-5 border-top" aria-labelledby="meetings-heading">
+      <div class="container">
+        <div class="text-center mb-5">
+          <span class="text-uppercase fw-bold text-warning small tracking-wide">Живые события</span>
+          <h2 id="meetings-heading" class="h1 fw-bold mt-2">Ближайшие встречи книжного клуба</h2>
+          <p class="text-muted col-lg-6 mx-auto">
+            Регистрируйтесь заранее — количество мест в офлайн-зале ограничено уютным форматом круглого стола на 15 человек.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-success">Офлайн • Москва</span>
+                <span class="text-muted small">8 ноября, 17:00</span>
+              </div>
+              <h3 class="h5 fw-bold">Мистика и реальность у Булгакова</h3>
+              <p class="text-muted small">
+                Локация: Литературный лофт «Мансарда», ул. Покровка, 18. Кофе-брейк и разбор романа «Мастер и Маргарита».
+              </p>
+              <div class="mt-auto pt-3">
+                <a href="order.html" class="btn btn-gold w-100">Записаться на встречу</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-primary">Онлайн • Zoom</span>
+                <span class="text-muted small">15 ноября, 18:30</span>
+              </div>
+              <h3 class="h5 fw-bold">Оруэлл в XXI веке: правда и медиа</h3>
+              <p class="text-muted small">
+                Интерактивная видеоконференция резидентов из разных городов. Разбираем роман «1984» и концепцию новояза.
+              </p>
+              <div class="mt-auto pt-3">
+                <a href="order.html" class="btn btn-gold w-100">Записаться на встречу</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge bg-warning text-dark">Книжный бранч</span>
+                <span class="text-muted small">22 ноября, 12:00</span>
+              </div>
+              <h3 class="h5 fw-bold">Философия Арракиса: Эпос «Дюны»</h3>
+              <p class="text-muted small">
+                Утренний бранч, чай с пряностями, сравнительный анализ книги Герберта и фильма.
+              </p>
+              <div class="mt-auto pt-3">
+                <a href="order.html" class="btn btn-gold w-100">Записаться на встречу</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Отзывы резидентов клуба -->
+    <section class="container my-5 py-2" aria-labelledby="reviews-heading">
+      <div class="text-center mb-5">
+        <span class="text-uppercase fw-bold text-warning small tracking-wide">Голоса читателей</span>
+        <h2 id="reviews-heading" class="h1 fw-bold mt-2">Что говорят участники Goldabook</h2>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm p-4 review-card">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <img src="images/avatar-1.svg" alt="Аватар Елены" class="avatar-img">
+              <div>
+                <h3 class="h6 fw-bold mb-0">Елена Смирнова</h3>
+                <small class="text-muted">Резидент 2 года • 24 встречи</small>
+              </div>
+            </div>
+            <p class="text-muted small mb-0">
+              «В Goldabook я наконец нашла людей, с которыми можно спорить о литературе часами! Здесь царит удивительно тёплая и уважительная атмосфера.»
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm p-4 review-card">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <img src="images/avatar-2.svg" alt="Аватар Алексея" class="avatar-img">
+              <div>
+                <h3 class="h6 fw-bold mb-0">Алексей Романов</h3>
+                <small class="text-muted">Модератор научной фантастики</small>
+              </div>
+            </div>
+            <p class="text-muted small mb-0">
+              «Отличная организация встреч. Очень ценно, что перед обсуждением готовятся материалы и вопросы — беседа получается глубокой и содержательной.»
+            </p>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="card h-100 shadow-sm p-4 review-card">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <img src="images/avatar-3.svg" alt="Аватар Марии" class="avatar-img">
+              <div>
+                <h3 class="h6 fw-bold mb-0">Мария Власова</h3>
+                <small class="text-muted">Резидент 8 месяцев</small>
+              </div>
+            </div>
+            <p class="text-muted small mb-0">
+              «Книжный своп — отдельная любовь! Поменяла прочитанные детективы на редкое издание Маркеса. Очень рекомендую вступить в клуб!»
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Модальное окно быстрой заявки (Bootstrap Modal) -->
+  <div 
+    class="modal fade" 
+    id="quickOrderModal" 
+    tabindex="-1" 
+    aria-labelledby="quickOrderModalLabel" 
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content shadow">
+        <div class="modal-header bg-dark text-white">
+          <h2 class="modal-title h5" id="quickOrderModalLabel">Быстрая запись в клуб Goldabook</h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="alert alert-info py-2 small" role="alert">
+            Оставьте контакты, и куратор клуба свяжется с вами в течение часа для подтверждения записи.
+          </div>
+          <form action="order.html" method="get">
+            <div class="mb-3">
+              <label for="quick-name" class="form-label">Ваше имя *</label>
+              <input type="text" class="form-control" id="quick-name" name="name" placeholder="Например, Михаил" required>
+            </div>
+            <div class="mb-3">
+              <label for="quick-phone" class="form-label">Телефон *</label>
+              <div class="input-group">
+                <span class="input-group-text">+7</span>
+                <input type="tel" class="form-control" id="quick-phone" name="phone" placeholder="999 123-45-67" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="quick-format" class="form-label">Формат участия</label>
+              <select class="form-select" id="quick-format" name="format">
+                <option value="offline" selected>Офлайн в Москве (Покровка, 18)</option>
+                <option value="online">Онлайн-дискуссия в Zoom</option>
+                <option value="reading-list">Только добавление в список чтения</option>
+              </select>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="quick-agree" required checked>
+              <label class="form-check-label small" for="quick-agree">
+                Согласен(на) на обработку персональных данных
+              </label>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+              <button type="submit" class="btn btn-gold">Подтвердить заявку</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Подвал сайта (Footer на Bootstrap-сетке) -->
+  <footer class="py-5 mt-5">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+        <div class="col-12 col-md-4">
+          <img src="images/logo.svg" alt="Goldabook" height="34" class="mb-3">
+          <p class="small text-muted mb-2">
+            Goldabook — независимый книжный клуб для тех, кто ценит интеллектуальное общение, хорошую литературу и уютную атмосферу.
+          </p>
+          <p class="small text-muted mb-0">
+            Студент: <strong>Углев Михаил</strong>, группа <strong>ЭФБО-10-25</strong>.<br>
+            Практики 9–11 (КР №2 / КР №3).
+          </p>
+        </div>
+        <div class="col-6 col-md-2 offset-md-1">
+          <h3 class="h6 text-white text-uppercase fw-bold mb-3">Навигация</h3>
+          <ul class="list-unstyled small mb-0">
+            <li class="mb-2"><a href="index.html">Главная</a></li>
+            <li class="mb-2"><a href="catalog.html">Каталог книг</a></li>
+            <li class="mb-2"><a href="product.html">Карточка книги</a></li>
+            <li class="mb-2"><a href="order.html">Встречи и запись</a></li>
+            <li class="mb-2"><a href="contacts.html">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <h3 class="h6 text-white text-uppercase fw-bold mb-3">Клуб</h3>
+          <ul class="list-unstyled small mb-0">
+            <li class="mb-2"><a href="catalog.html?genre=classic">Классика</a></li>
+            <li class="mb-2"><a href="catalog.html?genre=scifi">Фантастика</a></li>
+            <li class="mb-2"><a href="catalog.html?genre=dystopia">Антиутопии</a></li>
+            <li class="mb-2"><a href="order.html">Правила клуба</a></li>
+            <li class="mb-2"><a href="contacts.html#faq">Частые вопросы</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-3">
+          <h3 class="h6 text-white text-uppercase fw-bold mb-3">Контакты</h3>
+          <p class="small text-muted mb-1">📍 Москва, ул. Покровка, д. 18</p>
+          <p class="small text-muted mb-1">📞 +7 (495) 890-25-10</p>
+          <p class="small text-muted mb-3">✉️ club@goldabook.ru</p>
+          <div class="d-flex gap-2">
+            <a href="https://telegram.org" class="btn btn-outline-light btn-sm" target="_blank" rel="noopener">Telegram</a>
+            <a href="https://vk.com" class="btn btn-outline-light btn-sm" target="_blank" rel="noopener">ВКонтакте</a>
+          </div>
+        </div>
+      </div>
+      <div class="pt-4 mt-4 border-top border-secondary border-opacity-25 d-flex flex-column flex-sm-row justify-content-between align-items-center small text-muted">
+        <p class="mb-0">&copy; 2026 Goldabook. Учебный проект по веб-разработке.</p>
+        <p class="mb-0 mt-2 mt-sm-0">HTML5 • CSS3 • Bootstrap 5.3 (Local Vendor)</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Локальное подключение скрипта Bootstrap Bundle (включает Popper) -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

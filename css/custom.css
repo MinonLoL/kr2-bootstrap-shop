@@ -1,0 +1,348 @@
+/* ==========================================================================
+   Goldabook — Книжный клуб
+   Кастомные стили (custom.css)
+   Студент: Углев Михаил, ЭФБО-10-25
+   Контрольная работа №2 / Практики 9–11
+   ========================================================================== */
+
+:root {
+  --gb-primary: #1e293b;
+  --gb-primary-dark: #0f172a;
+  --gb-gold: #d97706;
+  --gb-gold-hover: #b45309;
+  --gb-gold-light: #fef3c7;
+  --gb-accent: #3b82f6;
+  --gb-bg-soft: #f8fafc;
+  --gb-text-main: #1e293b;
+  --gb-text-muted: #64748b;
+  --gb-border: #e2e8f0;
+  --gb-radius: 0.75rem;
+}
+
+/* Базовые параметры и типографика */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--gb-bg-soft);
+  color: var(--gb-text-main);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Доступность: видимый фокус для клавиатурной навигации */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--gb-gold) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.25) !important;
+}
+
+/* Skip link для скринридеров и клавиатуры */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: var(--gb-gold);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  z-index: 9999;
+  font-weight: 600;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Навигация (Navbar) */
+.navbar {
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand img {
+  height: 42px;
+  width: auto;
+  transition: transform 0.2s ease;
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.03);
+}
+
+.nav-link {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  padding: 0.6rem 0.9rem !important;
+  transition: color 0.2s ease;
+}
+
+.nav-link.active {
+  color: var(--gb-gold-light) !important;
+  font-weight: 700;
+  border-bottom: 2px solid var(--gb-gold);
+}
+
+/* Hero-секция */
+.hero-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #172554 100%);
+  color: #ffffff;
+  padding: 4.5rem 0;
+  border-radius: 0 0 2rem 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+.hero-badge {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+  display: inline-block;
+}
+
+/* Карточки книг (Card) */
+.book-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: var(--gb-radius);
+  border: 1px solid var(--gb-border);
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.book-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12) !important;
+}
+
+.book-cover-wrap {
+  background: #090d16;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.book-cover-img {
+  max-height: 260px;
+  width: auto;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease;
+}
+
+.book-card:hover .book-cover-img {
+  transform: scale(1.04);
+}
+
+.book-cover-large {
+  max-height: 440px;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Кнопки */
+.btn-gold {
+  background-color: var(--gb-gold);
+  color: #ffffff;
+  border-color: var(--gb-gold);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-gold:hover,
+.btn-gold:focus {
+  background-color: var(--gb-gold-hover);
+  border-color: var(--gb-gold-hover);
+  color: #ffffff;
+}
+
+.btn-outline-gold {
+  color: var(--gb-gold);
+  border-color: var(--gb-gold);
+  font-weight: 600;
+}
+
+.btn-outline-gold:hover,
+.btn-outline-gold:focus {
+  background-color: var(--gb-gold);
+  color: #ffffff;
+}
+
+/* Рейтинг */
+.rating-stars {
+  color: #f59e0b;
+  letter-spacing: 2px;
+  font-size: 0.95rem;
+}
+
+/* Преимущества и инфо-блоки */
+.feature-box {
+  background: #ffffff;
+  border-radius: var(--gb-radius);
+  border: 1px solid var(--gb-border);
+  padding: 2rem 1.5rem;
+  height: 100%;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.feature-icon-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+/* Карусель подборки месяца */
+.carousel-book-item {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  border: 1px solid var(--gb-border);
+  padding: 2rem;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--gb-gold);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(15, 23, 42, 0.65);
+  border-radius: 50%;
+  padding: 1.2rem;
+}
+
+/* Вкладки (Tabs) */
+.nav-tabs .nav-link {
+  color: var(--gb-text-main);
+  border-radius: 0.5rem 0.5rem 0 0;
+  font-weight: 600;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--gb-gold-hover) !important;
+  border-color: var(--gb-border) var(--gb-border) #ffffff;
+  border-bottom-width: 2px;
+}
+
+/* Accordion */
+.accordion-button:not(.collapsed) {
+  background-color: var(--gb-gold-light);
+  color: var(--gb-gold-hover);
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  border-color: var(--gb-gold);
+  box-shadow: 0 0 0 0.25rem rgba(217, 119, 6, 0.2);
+}
+
+/* Отзывы */
+.review-card {
+  border-left: 4px solid var(--gb-gold);
+  background: #ffffff;
+}
+
+.avatar-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Таблицы */
+.table-gold th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+  width: 35%;
+}
+
+/* Формы */
+.form-label {
+  font-weight: 600;
+  color: var(--gb-text-main);
+  margin-bottom: 0.35rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--gb-gold);
+  box-shadow: 0 0 0 0.25rem rgba(217, 119, 6, 0.2);
+}
+
+/* Подвал (Footer) */
+footer {
+  background-color: var(--gb-primary-dark);
+  color: #94a3b8;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+footer a {
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: var(--gb-gold);
+}
+
+/* Модальное окно */
+.modal-header {
+  border-bottom: 1px solid var(--gb-border);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--gb-border);
+}
+
+/* Адаптивная поддержка малых экранов */
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .book-cover-large {
+    max-height: 320px;
+  }
+}

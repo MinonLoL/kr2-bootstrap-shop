@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" width="300" height="420">
+  <defs>
+    <linearGradient id="bgMaster" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="50%" stop-color="#27272a"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="goldM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#a16207"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="420" rx="12" fill="url(#bgMaster)"/>
+  <!-- Gold Border Frame -->
+  <rect x="15" y="15" width="270" height="390" rx="8" fill="none" stroke="url(#goldM)" stroke-width="2"/>
+  <rect x="22" y="22" width="256" height="376" rx="6" fill="none" stroke="url(#goldM)" stroke-width="0.8" stroke-dasharray="4 2"/>
+  
+  <!-- Silhouette: Full Moon and Black Cat silhouette -->
+  <circle cx="150" cy="180" r="65" fill="#fef08a" opacity="0.85"/>
+  <!-- Cat silhouette with green glowing eyes -->
+  <ellipse cx="150" cy="205" rx="36" ry="30" fill="#09090b"/>
+  <circle cx="150" cy="165" r="22" fill="#09090b"/>
+  <!-- Cat ears -->
+  <polygon points="135,152 142,135 148,150" fill="#09090b"/>
+  <polygon points="165,152 158,135 152,150" fill="#09090b"/>
+  <!-- Eyes -->
+  <ellipse cx="142" cy="164" rx="4" ry="2.5" fill="#4ade80"/>
+  <ellipse cx="158" cy="164" rx="4" ry="2.5" fill="#4ade80"/>
+  
+  <!-- Primus & manuscript flames -->
+  <path d="M 140 250 Q 150 235 160 250 Q 155 260 140 250 Z" fill="#f97316"/>
+  <path d="M 145 248 Q 150 240 155 248 Z" fill="#fef08a"/>
+
+  <!-- Typography -->
+  <text x="150" y="65" font-family="'Times New Roman', serif" font-size="15" font-weight="bold" fill="url(#goldM)" text-anchor="middle" letter-spacing="3">МИХАИЛ БУЛГАКОВ</text>
+  <line x1="80" y1="78" x2="220" y2="78" stroke="url(#goldM)" stroke-width="1"/>
+  
+  <text x="150" y="325" font-family="'Times New Roman', serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle" letter-spacing="1">МАСТЕР И</text>
+  <text x="150" y="355" font-family="'Times New Roman', serif" font-size="24" font-weight="bold" fill="url(#goldM)" text-anchor="middle" letter-spacing="2">МАРГАРИТА</text>
+  <text x="150" y="385" font-family="sans-serif" font-size="11" fill="#a1a1aa" text-anchor="middle" letter-spacing="1">ЗОЛОТАЯ КОЛЛЕКЦИЯ КЛУБА</text>
+</svg>

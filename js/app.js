@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Goldabook Pro — Интерактивная платформа премиального книжного клуба
  * Production Commercial Platform
  */
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuoteCopier();
   initOrderCalculator();
   initBackToTop();
+  initBookDetailsModal();
 });
 
 /* ==========================================================================
@@ -529,4 +530,178 @@ function showToast(title, message, type = 'info') {
   toastEl.addEventListener('hidden.bs.toast', () => {
     toastEl.remove();
   });
+}
+
+
+const bookDatabase = {
+  'master': {
+    title: 'Мастер и Маргарита',
+    author: 'Михаил Афанасьевич Булгаков',
+    genre: 'Классика XX века',
+    rating: '★★★★★ 4.95',
+    image: 'images/book-master.jpg',
+    badge: 'Книга месяца (Ноябрь 2026)',
+    desc: 'Вершина отечественной прозы XX столетия. Загадочный роман, сочетающий в себе евангельскую историю Понтия Пилата, колкую сатиру на советскую Москву 1930-х годов, трагическую любовь Мастера и пронзительную верность Маргариты.'
+  },
+  '1984': {
+    title: '1984',
+    author: 'Джордж Оруэлл',
+    genre: 'Антиутопия',
+    rating: '★★★★★ 4.88',
+    image: 'images/book-1984.jpg',
+    badge: 'Хит дискуссий',
+    desc: 'Легендарный роман-антиутопия о тоталитарном государстве Океании, двоемыслии, Министерстве Правды и бунте маленького человека против всепоглощающей Системы.'
+  },
+  'dune': {
+    title: 'Дюна',
+    author: 'Фрэнк Герберт',
+    genre: 'Научная фантастика',
+    rating: '★★★★★ 4.91',
+    image: 'images/book-dune.jpg',
+    badge: 'Выбор клуба',
+    desc: 'Монументальная фантастическая сага о пустынной планете Арракис, спайсе, песчаных червях, политических интригах Великих Домов и становлении Пола Атрейдеса Муад`Дибом.'
+  },
+  'solitude': {
+    title: 'Сто лет одиночества',
+    author: 'Габриэль Гарсиа Маркес',
+    genre: 'Магический реализм',
+    rating: '★★★★★ 4.84',
+    image: 'images/book-solitude.jpg',
+    badge: 'Золотая коллекция',
+    desc: 'Культовая хроника рода Буэндиа в затерянном среди джунглей городке Макондо, где чудеса переплетаются с обыденностью, а одиночество передаётся через поколения.'
+  },
+  'flowers': {
+    title: 'Цветы для Элджернона',
+    author: 'Дэниел Киз',
+    genre: 'Психологическая драма',
+    rating: '★★★★★ 4.93',
+    image: 'images/book-flowers.jpg',
+    badge: 'Выбор читателей',
+    desc: 'Пронзительная история умственно отсталого Чарли Гордона и лабораторного мышонка Элджернона, прошедших через революционный научный эксперимент по увеличению интеллекта.'
+  },
+  'prince': {
+    title: 'Маленький принц',
+    author: 'Антуан де Сент-Экзюпери',
+    genre: 'Философская сказка',
+    rating: '★★★★★ 4.97',
+    image: 'images/book-prince.jpg',
+    badge: 'Абсолютный фаворит',
+    desc: 'Трогательная и глубокая философская притча о дружбе, любви, верности своей розе и умении видеть мир сердцем, а не только глазами.'
+  },
+  'bradbury': {
+    title: '451° по Фаренгейту',
+    author: 'Рэй Брэдбери',
+    genre: 'Антиутопия',
+    rating: '★★★★★ 4.89',
+    image: 'images/book-bradbury.jpg',
+    badge: 'Классика фантастики',
+    desc: 'Тревожное предостережение о потребительском обществе будущего, где книги запрещены законом, а пожарные бригады сжигают любые найденные печатные страницы.'
+  },
+  'dostoevsky': {
+    title: 'Преступление и наказание',
+    author: 'Фёдор Михайлович Достоевский',
+    genre: 'Русская классика',
+    rating: '★★★★★ 4.94',
+    image: 'images/book-dostoevsky.jpg',
+    badge: 'Золотой фонд',
+    desc: 'Бессмертное психологическое исследование греха, совести и искупления через судьбу Родиона Раскольникова в душном и тревожном Петербурге.'
+  },
+  'wilde': {
+    title: 'Портрет Дориана Грея',
+    author: 'Оскар Уайльд',
+    genre: 'Интеллектуальная проза',
+    rating: '★★★★★ 4.87',
+    image: 'images/book-wilde.jpg',
+    badge: 'Эстетизм и драма',
+    desc: 'Блистательный роман об искушении вечной молодостью, гедонизме и страшной цене, которую приходится платить за утрату собственной души.'
+  }
+};
+
+/* ==========================================================================
+   8. Интерактивная карточка книги в модальном окне (#bookDetailsModal)
+   ========================================================================== */
+function initBookDetailsModal() {
+  const modalEl = document.getElementById('bookDetailsModal');
+  if (!modalEl) return;
+
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.btn-open-book-modal') || e.target.closest('[data-bs-target="#bookDetailsModal"]');
+    if (!trigger) return;
+
+    let bookId = trigger.getAttribute('data-book-id');
+    if (!bookId) {
+      const parentCol = trigger.closest('.book-item-col') || trigger.closest('.card');
+      const bmBtn = parentCol ? parentCol.querySelector('.btn-bookmark') : null;
+      if (bmBtn) bookId = bmBtn.getAttribute('data-book-id');
+    }
+
+    if (!bookId || !bookDatabase[bookId]) {
+      bookId = 'master';
+    }
+
+    const book = bookDatabase[bookId];
+
+    const modalTitleEl = document.getElementById('bookDetailsModalLabel');
+    if (modalTitleEl) modalTitleEl.textContent = `${book.title} — ${book.author}`;
+
+    const imgEl = document.getElementById('modal-book-img');
+    if (imgEl) {
+      imgEl.src = book.image;
+      imgEl.alt = `Обложка: ${book.title}`;
+    }
+
+    const badge1 = document.getElementById('modal-book-badge1');
+    if (badge1) badge1.textContent = book.badge;
+
+    const genreBadge = document.getElementById('modal-book-genre');
+    if (genreBadge) genreBadge.textContent = book.genre;
+
+    const titleEl = document.getElementById('modal-book-title');
+    if (titleEl) titleEl.textContent = book.title;
+
+    const authorEl = document.getElementById('modal-book-author');
+    if (authorEl) authorEl.textContent = book.author;
+
+    const specAuthor = document.getElementById('modal-spec-author');
+    if (specAuthor) specAuthor.textContent = book.author;
+
+    const specGenre = document.getElementById('modal-spec-genre');
+    if (specGenre) specGenre.textContent = book.genre;
+
+    const ratingEl = document.getElementById('modal-book-rating');
+    if (ratingEl) ratingEl.textContent = book.rating;
+
+    const descEl = document.getElementById('modal-book-desc');
+    if (descEl) descEl.textContent = book.desc;
+
+    const modalBmBtn = modalEl.querySelector('.modal-bookmark-toggle');
+    if (modalBmBtn) {
+      modalBmBtn.setAttribute('data-book-id', bookId);
+      modalBmBtn.setAttribute('data-book-title', book.title);
+      const isBookmarked = getBookmarks().includes(bookId);
+      modalBmBtn.textContent = isBookmarked ? '★ В списке чтения (Сохранено)' : '☆ В список чтения';
+      modalBmBtn.classList.toggle('btn-warning', isBookmarked);
+      modalBmBtn.classList.toggle('btn-outline-dark', !isBookmarked);
+    }
+  });
+
+  const modalBmBtn = modalEl.querySelector('.modal-bookmark-toggle');
+  if (modalBmBtn) {
+    modalBmBtn.addEventListener('click', function() {
+      const bookId = this.getAttribute('data-book-id');
+      const bookTitle = this.getAttribute('data-book-title');
+      if (!bookId) return;
+
+      const added = toggleBookmark(bookId, bookTitle);
+      this.textContent = added ? '★ В списке чтения (Сохранено)' : '☆ В список чтения';
+      this.classList.toggle('btn-warning', added);
+      this.classList.toggle('btn-outline-dark', !added);
+
+      const pageBtn = document.querySelector(`.btn-bookmark[data-book-id="${bookId}"]`);
+      if (pageBtn) {
+        pageBtn.textContent = added ? '★' : '☆';
+        pageBtn.classList.toggle('active', added);
+      }
+    });
+  }
 }

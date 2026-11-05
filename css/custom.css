@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    Goldabook Pro -- Intellectual Book Club & Literary Platform
    Design System & High Contrast WCAG AAA Styles
    Commercial Edition: Goldabook Media Platform (c) 2026
@@ -331,8 +331,9 @@ textarea:focus-visible {
 }
 
 .navbar-brand img {
-  height: 42px;
+  height: 40px;
   width: auto;
+  border-radius: 6px;
   transition: transform 0.25s ease;
 }
 
@@ -495,10 +496,11 @@ textarea:focus-visible {
 }
 
 .feature-icon-img {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.12));
 }
 

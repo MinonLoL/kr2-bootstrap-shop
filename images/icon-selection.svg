@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="36" height="36" fill="none">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="bookPage" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#fef3c7"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Glow / Shadow -->
+  <ellipse cx="24" cy="42" rx="16" ry="3" fill="#d97706" opacity="0.2"/>
+  
+  <!-- Open Book Base Cover -->
+  <path d="M 6 36 Q 15 32 24 35 Q 33 32 42 36 L 42 16 Q 33 12 24 15 Q 15 12 6 16 Z" fill="url(#goldGrad)"/>
+  
+  <!-- Pages -->
+  <path d="M 8 33 Q 16 30 24 33 Q 32 30 40 33 L 40 14 Q 32 11 24 14 Q 16 11 8 14 Z" fill="url(#bookPage)"/>
+  <path d="M 24 14 L 24 33" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Text lines on left and right page -->
+  <line x1="12" y1="18" x2="20" y2="18" stroke="#d97706" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+  <line x1="12" y1="22" x2="20" y2="22" stroke="#d97706" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+  <line x1="12" y1="26" x2="18" y2="26" stroke="#d97706" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+  
+  <line x1="28" y1="18" x2="36" y2="18" stroke="#d97706" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+  <line x1="28" y1="22" x2="36" y2="22" stroke="#d97706" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+  <line x1="28" y1="26" x2="34" y2="26" stroke="#d97706" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Star of Quality above -->
+  <path d="M 24 4 L 25.5 8 L 29.5 8.5 L 26.5 11.2 L 27.5 15 L 24 13 L 20.5 15 L 21.5 11.2 L 18.5 8.5 L 22.5 8 Z" fill="#fbbf24" stroke="#d97706" stroke-width="0.8"/>
+</svg>

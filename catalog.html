@@ -3,8 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <!-- Предотвращение белой вспышки (Anti-FOUC): мгновенная установка темы ДО рендеринга стилей -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('goldabook-theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-bs-theme', t);
+      } catch(e) {}
+    })();
+  </script>
   <meta name="description" content="Каталог книг клуба Goldabook — подборки по жанрам, рейтингу, отзывы и списки для совместного чтения.">
-  <meta name="author" content="Углев Михаил, ЭФБО-10-25">
+  <meta name="author" content="Goldabook Inc.">
   <title>Каталог книг — Goldabook | Подборки и рейтинги</title>
 
   <!-- Локальное подключение Bootstrap -->
@@ -26,8 +37,8 @@
           <span>Каталог клубной библиотеки: новинки, проверенная классика и бестселлеры</span>
         </div>
         <div class="col-12 col-md-5 text-center text-md-end">
-          <span class="badge bg-warning text-dark me-2">ЭФБО-10-25</span>
-          <span class="text-secondary">Углев Михаил • КР №2 / КР №3</span>
+          <span class="badge bg-warning text-dark me-2">Закрытый клуб</span>
+          <span class="text-light text-opacity-90">📞 +7 (495) 890-25-10 • Москва &amp; Онлайн</span>
         </div>
       </div>
     </div>
@@ -89,6 +100,15 @@
               <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#quickOrderModal">Быстрая запись в клуб</a></li>
             </ul>
           </li>
+          <li class="nav-item ms-lg-3 mt-2 mt-lg-0 d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-outline-warning bookmarks-btn text-warning position-relative px-2 py-1" type="button" aria-label="Список чтения" title="Ваш список чтения">
+              ★ <span class="d-none d-xl-inline">Список чтения</span>
+              <span class="bookmarks-badge" style="display: none;">0</span>
+            </button>
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая/Тёмная тема">
+              🌙
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -121,7 +141,7 @@
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
       <div>
         <h1 class="h2 fw-bold mb-1">Каталог произведений книжного клуба</h1>
-        <p class="text-muted small mb-0">Найдено 6 шедевров мировой литературы для совместных дискуссий</p>
+        <p class="text-muted small mb-0">Найдено 6 шедевров мировой литературы для совместных дискуссий</p><p class="text-muted small mb-0 catalog-count-display"></p>
       </div>
       <div class="mt-3 mt-md-0">
         <button 
@@ -213,13 +233,10 @@
     </div>
 
     <!-- Адаптивная сетка карточек книг на Bootstrap-сетке (row g-4, col-12 col-md-6 col-lg-4) -->
-    <div class="row g-4">
+    <div class="row g-4" id="catalog-grid">
       
       <!-- Карточка 1: Мастер и Маргарита -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="card h-100 shadow-sm book-card">
-          <div class="book-cover-wrap">
-            <img src="images/book-master.svg" class="book-cover-img" alt="Обложка книги Мастер и Маргарита">
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="Мастер и Маргарита" data-author="Михаил Булгаков" data-genre="classic" data-rating="4.95"><article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="master" data-book-title="Мастер и Маргарита" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-master.svg" class="book-cover-img" alt="Обложка книги Мастер и Маргарита">
           </div>
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-2">
@@ -227,7 +244,7 @@
               <span class="rating-stars">★★★★★ <small class="text-muted">(4.95)</small></span>
             </div>
             <h2 class="card-title h5 fw-bold mb-1">
-              <a href="product.html" class="text-decoration-none text-dark">Мастер и Маргарита</a>
+              <a href="product.html" class="text-decoration-none book-title-link">Мастер и Маргарита</a>
             </h2>
             <p class="text-secondary small mb-2">Михаил Булгаков • Классика, мистика</p>
             <p class="card-text text-muted small flex-grow-1">
@@ -253,10 +270,7 @@
       </div>
 
       <!-- Карточка 2: 1984 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="card h-100 shadow-sm book-card">
-          <div class="book-cover-wrap">
-            <img src="images/book-1984.svg" class="book-cover-img" alt="Обложка книги 1984">
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="1984" data-author="Джордж Оруэлл" data-genre="dystopia" data-rating="4.88"><article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="1984" data-book-title="1984" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-1984.svg" class="book-cover-img" alt="Обложка книги 1984">
           </div>
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-2">
@@ -264,7 +278,7 @@
               <span class="rating-stars">★★★★★ <small class="text-muted">(4.88)</small></span>
             </div>
             <h2 class="card-title h5 fw-bold mb-1">
-              <a href="product.html" class="text-decoration-none text-dark">1984</a>
+              <a href="product.html" class="text-decoration-none book-title-link">1984</a>
             </h2>
             <p class="text-secondary small mb-2">Джордж Оруэлл • Социальная драма</p>
             <p class="card-text text-muted small flex-grow-1">
@@ -290,10 +304,7 @@
       </div>
 
       <!-- Карточка 3: Дюна -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="card h-100 shadow-sm book-card">
-          <div class="book-cover-wrap">
-            <img src="images/book-dune.svg" class="book-cover-img" alt="Обложка книги Дюна">
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="Дюна" data-author="Фрэнк Герберт" data-genre="scifi" data-rating="4.91"><article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="dune" data-book-title="Дюна" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-dune.svg" class="book-cover-img" alt="Обложка книги Дюна">
           </div>
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-2">
@@ -301,7 +312,7 @@
               <span class="rating-stars">★★★★★ <small class="text-muted">(4.91)</small></span>
             </div>
             <h2 class="card-title h5 fw-bold mb-1">
-              <a href="product.html" class="text-decoration-none text-dark">Дюна</a>
+              <a href="product.html" class="text-decoration-none book-title-link">Дюна</a>
             </h2>
             <p class="text-secondary small mb-2">Фрэнк Герберт • Научная фантастика</p>
             <p class="card-text text-muted small flex-grow-1">
@@ -327,10 +338,7 @@
       </div>
 
       <!-- Карточка 4: Сто лет одиночества -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="card h-100 shadow-sm book-card">
-          <div class="book-cover-wrap">
-            <img src="images/book-solitude.svg" class="book-cover-img" alt="Обложка книги Сто лет одиночества">
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="Сто лет одиночества" data-author="Габриэль Гарсиа Маркес" data-genre="classic" data-rating="4.84"><article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="solitude" data-book-title="Сто лет одиночества" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-solitude.svg" class="book-cover-img" alt="Обложка книги Сто лет одиночества">
           </div>
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-2">
@@ -338,7 +346,7 @@
               <span class="rating-stars">★★★★★ <small class="text-muted">(4.84)</small></span>
             </div>
             <h2 class="card-title h5 fw-bold mb-1">
-              <a href="product.html" class="text-decoration-none text-dark">Сто лет одиночества</a>
+              <a href="product.html" class="text-decoration-none book-title-link">Сто лет одиночества</a>
             </h2>
             <p class="text-secondary small mb-2">Габриэль Гарсиа Маркес • Эпопея</p>
             <p class="card-text text-muted small flex-grow-1">
@@ -364,10 +372,7 @@
       </div>
 
       <!-- Карточка 5: Цветы для Элджернона -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="card h-100 shadow-sm book-card">
-          <div class="book-cover-wrap">
-            <img src="images/book-flowers.svg" class="book-cover-img" alt="Обложка книги Цветы для Элджернона">
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="Цветы для Элджернона" data-author="Дэниел Киз" data-genre="psychology" data-rating="4.93"><article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="flowers" data-book-title="Цветы для Элджернона" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-flowers.svg" class="book-cover-img" alt="Обложка книги Цветы для Элджернона">
           </div>
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-2">
@@ -375,7 +380,7 @@
               <span class="rating-stars">★★★★★ <small class="text-muted">(4.93)</small></span>
             </div>
             <h2 class="card-title h5 fw-bold mb-1">
-              <a href="product.html" class="text-decoration-none text-dark">Цветы для Элджернона</a>
+              <a href="product.html" class="text-decoration-none book-title-link">Цветы для Элджернона</a>
             </h2>
             <p class="text-secondary small mb-2">Дэниел Киз • Научная драма</p>
             <p class="card-text text-muted small flex-grow-1">
@@ -401,10 +406,7 @@
       </div>
 
       <!-- Карточка 6: Маленький принц -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="card h-100 shadow-sm book-card">
-          <div class="book-cover-wrap">
-            <img src="images/book-prince.svg" class="book-cover-img" alt="Обложка книги Маленький принц">
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="Маленький принц" data-author="Антуан де Сент-Экзюпери" data-genre="philosophy" data-rating="4.97"><article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="prince" data-book-title="Маленький принц" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-prince.svg" class="book-cover-img" alt="Обложка книги Маленький принц">
           </div>
           <div class="card-body d-flex flex-column">
             <div class="d-flex justify-content-between align-items-start mb-2">
@@ -412,7 +414,7 @@
               <span class="rating-stars">★★★★★ <small class="text-muted">(4.97)</small></span>
             </div>
             <h2 class="card-title h5 fw-bold mb-1">
-              <a href="product.html" class="text-decoration-none text-dark">Маленький принц</a>
+              <a href="product.html" class="text-decoration-none book-title-link">Маленький принц</a>
             </h2>
             <p class="text-secondary small mb-2">Антуан де Сент-Экзюпери • Философия</p>
             <p class="card-text text-muted small flex-grow-1">
@@ -436,27 +438,126 @@
           </div>
         </article>
       </div>
+      <!-- Карточка 7: 451° по Фаренгейту -->
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="451° по Фаренгейту" data-author="Рэй Брэдбери" data-genre="dystopia" data-rating="4.90">
+        <article class="card h-100 shadow-sm book-card">
+          <div class="book-cover-wrap">
+            <button class="btn-bookmark" data-book-id="bradbury" data-book-title="451° по Фаренгейту" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button>
+            <img src="images/book-bradbury.svg" class="book-cover-img" alt="Обложка книги 451° по Фаренгейту">
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge bg-danger">Антиутопия</span>
+              <span class="rating-stars">★★★★★ <small class="text-muted">(4.90)</small></span>
+            </div>
+            <h2 class="card-title h5 fw-bold mb-1">
+              <a href="product.html" class="text-decoration-none book-title-link">451° по Фаренгейту</a>
+            </h2>
+            <p class="text-secondary small mb-2">Рэй Брэдбери • Научная фантастика</p>
+            <p class="card-text text-muted small flex-grow-1">
+              Мир, где книги под запретом, а пожарные разжигают огонь. История Гая Монтэга, решившего спасти мысль.
+            </p>
+            <div class="d-flex justify-content-between align-items-center small text-muted mb-3 bg-light p-2 rounded">
+              <span>📅 Встреча: <strong>20 дек.</strong></span>
+              <span class="text-success fw-semibold">Лофт читальни</span>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="product.html" class="btn btn-outline-dark btn-sm flex-fill">Подробнее</a>
+              <button 
+                type="button" 
+                class="btn btn-gold btn-sm flex-fill" 
+                data-bs-toggle="modal" 
+                data-bs-target="#quickOrderModal"
+              >
+                В список чтения
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Карточка 8: Преступление и наказание -->
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="Преступление и наказание" data-author="Фёдор Достоевский" data-genre="classic" data-rating="4.89">
+        <article class="card h-100 shadow-sm book-card">
+          <div class="book-cover-wrap">
+            <button class="btn-bookmark" data-book-id="dostoevsky" data-book-title="Преступление и наказание" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button>
+            <img src="images/book-dostoevsky.svg" class="book-cover-img" alt="Обложка книги Преступление и наказание">
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge bg-warning text-dark">Русская классика</span>
+              <span class="rating-stars">★★★★★ <small class="text-muted">(4.89)</small></span>
+            </div>
+            <h2 class="card-title h5 fw-bold mb-1">
+              <a href="product.html" class="text-decoration-none book-title-link">Преступление и наказание</a>
+            </h2>
+            <p class="text-secondary small mb-2">Фёдор Достоевский • Психологический роман</p>
+            <p class="card-text text-muted small flex-grow-1">
+              Петербург Раскольникова, муки совести, теория об «обыкновенных» людях и путь к духовному возрождению.
+            </p>
+            <div class="d-flex justify-content-between align-items-center small text-muted mb-3 bg-light p-2 rounded">
+              <span>📅 Встреча: <strong>27 дек.</strong></span>
+              <span class="text-success fw-semibold">Очно в лофте</span>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="product.html" class="btn btn-outline-dark btn-sm flex-fill">Подробнее</a>
+              <button 
+                type="button" 
+                class="btn btn-gold btn-sm flex-fill" 
+                data-bs-toggle="modal" 
+                data-bs-target="#quickOrderModal"
+              >
+                В список чтения
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Карточка 9: Портрет Дориана Грея -->
+      <div class="col-12 col-md-6 col-lg-4 book-item-col" data-title="Портрет Дориана Грея" data-author="Оскар Уайльд" data-genre="philosophy" data-rating="4.86">
+        <article class="card h-100 shadow-sm book-card">
+          <div class="book-cover-wrap">
+            <button class="btn-bookmark" data-book-id="wilde" data-book-title="Портрет Дориана Грея" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button>
+            <img src="images/book-wilde.svg" class="book-cover-img" alt="Обложка книги Портрет Дориана Грея">
+          </div>
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge bg-info text-dark">Философия</span>
+              <span class="rating-stars">★★★★★ <small class="text-muted">(4.86)</small></span>
+            </div>
+            <h2 class="card-title h5 fw-bold mb-1">
+              <a href="product.html" class="text-decoration-none book-title-link">Портрет Дориана Грея</a>
+            </h2>
+            <p class="text-secondary small mb-2">Оскар Уайльд • Эстетизм и драма</p>
+            <p class="card-text text-muted small flex-grow-1">
+              Искушение вечной молодостью, тайная комната с полотном и трагедия человека, променявшего душу на красоту.
+            </p>
+            <div class="d-flex justify-content-between align-items-center small text-muted mb-3 bg-light p-2 rounded">
+              <span>📅 Встреча: <strong>10 янв.</strong></span>
+              <span class="text-success fw-semibold">Онлайн Zoom</span>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="product.html" class="btn btn-outline-dark btn-sm flex-fill">Подробнее</a>
+              <button 
+                type="button" 
+                class="btn btn-gold btn-sm flex-fill" 
+                data-bs-toggle="modal" 
+                data-bs-target="#quickOrderModal"
+              >
+                В список чтения
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
 
     </div>
 
-    <!-- Bootstrap Пагинация (Pagination) -->
-    <nav aria-label="Навигация по страницам каталога" class="mt-5">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <span class="page-link">&laquo; Назад</span>
-        </li>
-        <li class="page-item active" aria-current="page">
-          <span class="page-link bg-dark border-dark">1</span>
-        </li>
-        <li class="page-item">
-          <a class="page-link text-dark" href="#page-2">2</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link text-dark" href="#page-3">3</a>
-        </li>
-        <li class="page-item">
-          <a class="page-link text-dark" href="#page-next">Вперёд &raquo;</a>
-        </li>
+    <!-- Bootstrap Пагинация (Интерактивная) -->
+    <nav aria-label="Навигация по страницам каталога" class="mt-5" id="catalog-pagination-nav">
+      <ul class="pagination justify-content-center" id="catalog-pagination">
+        <!-- Управляется интерактивно через js/app.js -->
       </ul>
     </nav>
 
@@ -529,8 +630,8 @@
             Goldabook — независимый книжный клуб для тех, кто ценит интеллектуальное общение, хорошую литературу и уютную атмосферу.
           </p>
           <p class="small text-light text-opacity-90 mb-0">
-            Студент: <strong class="text-white">Углев Михаил</strong>, группа <strong class="text-white">ЭФБО-10-25</strong>.<br>
-            <span class="text-warning">Практики 9–11 (КР №2 / КР №3)</span>
+            ООО «Голдабук Медиа» • ОГРН 1267700481920 • ИНН 7704891230<br>
+            <span class="text-warning">Премиальный закрытый клуб и лекторий совместного чтения</span>
           </p>
         </div>
         <div class="col-6 col-md-2 offset-md-1">
@@ -565,13 +666,19 @@
         </div>
       </div>
       <div class="pt-4 mt-4 border-top border-secondary border-opacity-50 d-flex flex-column flex-sm-row justify-content-between align-items-center small text-light text-opacity-75">
-        <p class="mb-0">&copy; 2026 Goldabook. Учебный проект по веб-разработке.</p>
-        <p class="mb-0 mt-2 mt-sm-0">HTML5 • CSS3 • Bootstrap 5.3 (Local Vendor)</p>
+        <p class="mb-0">&copy; 2026 Goldabook Inc. Все права защищены. <a href="order.html" class="text-light text-opacity-75 text-decoration-underline ms-1">Оферта</a> • <a href="contacts.html" class="text-light text-opacity-75 text-decoration-underline ms-1">Конфиденциальность</a></p>
+        <p class="mb-0 mt-2 mt-sm-0">Премиальный сервис совместного чтения и книжных дискуссий</p>
       </div>
     </div>
   </footer>
 
   <!-- Локальный Bootstrap Bundle JS -->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
+
+
+
+
+

@@ -3,8 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <!-- Предотвращение белой вспышки (Anti-FOUC): мгновенная установка темы ДО рендеринга стилей -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('goldabook-theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-bs-theme', t);
+      } catch(e) {}
+    })();
+  </script>
   <meta name="description" content="Карточка книги «Мастер и Маргарита» Михаила Булгакова в книжном клубе Goldabook. Описание, отзывы, характеристики и запись на обсуждение.">
-  <meta name="author" content="Углев Михаил, ЭФБО-10-25">
+  <meta name="author" content="Goldabook Inc.">
   <title>Мастер и Маргарита — Михаил Булгаков | Goldabook</title>
 
   <!-- Локальное подключение Bootstrap -->
@@ -26,8 +37,8 @@
           <span>Книга месяца: «Мастер и Маргарита» М. А. Булгакова. Открыта регистрация на очную встречу</span>
         </div>
         <div class="col-12 col-md-5 text-center text-md-end">
-          <span class="badge bg-warning text-dark me-2">ЭФБО-10-25</span>
-          <span class="text-secondary">Углев Михаил • КР №2 / КР №3</span>
+          <span class="badge bg-warning text-dark me-2">Закрытый клуб</span>
+          <span class="text-light text-opacity-90">📞 +7 (495) 890-25-10 • Москва &amp; Онлайн</span>
         </div>
       </div>
     </div>
@@ -88,6 +99,15 @@
               <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#quickOrderModal">Быстрая запись в клуб</a></li>
             </ul>
           </li>
+          <li class="nav-item ms-lg-3 mt-2 mt-lg-0 d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-outline-warning bookmarks-btn text-warning position-relative px-2 py-1" type="button" aria-label="Список чтения" title="Ваш список чтения">
+              ★ <span class="d-none d-xl-inline">Список чтения</span>
+              <span class="bookmarks-badge" style="display: none;">0</span>
+            </button>
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая/Тёмная тема">
+              🌙
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -113,16 +133,14 @@
       <!-- Колонка 1: Обложка книги и быстрые бейджи -->
       <div class="col-12 col-lg-5 text-center">
         <div class="card shadow-sm border-0 p-3 bg-white d-inline-block">
-          <div class="book-cover-wrap rounded-3">
-            <img 
-              src="images/book-master.svg" 
+          <div class="book-cover-wrap rounded-3 position-relative"><button class="btn-bookmark" data-book-id="master" data-book-title="Мастер и Маргарита" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-master.svg" 
               alt="Книга: Мастер и Маргарита" 
               class="book-cover-large img-fluid"
             >
           </div>
           <div class="d-flex justify-content-between align-items-center mt-3 px-2">
             <span class="badge bg-success">В библиотеке клуба (8 экз.)</span>
-            <span class="rating-stars">★★★★★ <strong class="text-dark">4.95 / 5.0</strong></span>
+            <span class="rating-stars">★★★★★ <strong class="text-body fw-bold">4.95 / 5.0</strong></span>
           </div>
         </div>
       </div>
@@ -264,40 +282,49 @@
           <div class="tab-pane fade" id="reviews-content" role="tabpanel" aria-labelledby="reviews-tab">
             <div class="d-flex justify-content-between align-items-center mb-4">
               <h3 class="h5 fw-bold mb-0">Отзывы участников предыдущих встреч</h3>
-              <button class="btn btn-outline-warning btn-sm text-dark" data-bs-toggle="modal" data-bs-target="#quickOrderModal">
+              <button class="btn btn-outline-warning btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#quickOrderModal">
                 Написать свой отзыв
               </button>
             </div>
 
             <div class="d-flex flex-column gap-3">
               <div class="p-3 rounded bg-light border-start border-warning border-4">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <strong>Константин Лазарев</strong>
-                  <span class="rating-stars small">★★★★★ (5.0)</span>
+                <div class="d-flex align-items-center gap-3 mb-2">
+                  <img src="images/avatar-4.jpg" alt="Фото: Константин Лазарев" class="avatar-img" width="46" height="46" style="width: 46px; height: 46px;">
+                  <div>
+                    <strong class="d-block">Константин Лазарев</strong>
+                    <small class="text-muted">Обсуждали в октябре 2025 • Член клуба 2 года</small>
+                  </div>
+                  <span class="rating-stars small ms-auto text-warning">★★★★★ (5.0)</span>
                 </div>
-                <small class="text-muted d-block mb-2">Обсуждали в октябре 2025 • Член клуба</small>
                 <p class="mb-0 small text-secondary">
                   «Перечитывал роман в четвёртый раз специально к клубу. Впервые благодаря нашему модератору обратил внимание на точную топографию Москвы. Разбор Пилатовых глав был просто потрясающим!»
                 </p>
               </div>
 
               <div class="p-3 rounded bg-light border-start border-warning border-4">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <strong>Анна Васильева</strong>
-                  <span class="rating-stars small">★★★★★ (5.0)</span>
+                <div class="d-flex align-items-center gap-3 mb-2">
+                  <img src="images/avatar-1.jpg" alt="Фото: Анна Васильева" class="avatar-img" width="46" height="46" style="width: 46px; height: 46px;">
+                  <div>
+                    <strong class="d-block">Анна Васильева</strong>
+                    <small class="text-muted">Член клуба 1 год • 12 встреч</small>
+                  </div>
+                  <span class="rating-stars small ms-auto text-warning">★★★★★ (5.0)</span>
                 </div>
-                <small class="text-muted d-block mb-2">Член клуба 1 год</small>
                 <p class="mb-0 small text-secondary">
                   «Очень боялась, что не смогу сформулировать свои мысли, но клубная беседа выстроена так бережно, что даже робкие участники чувствуют уверенность. Книга заиграла новыми красками.»
                 </p>
               </div>
 
               <div class="p-3 rounded bg-light border-start border-warning border-4">
-                <div class="d-flex justify-content-between align-items-center mb-1">
-                  <strong>Дмитрий Серов</strong>
-                  <span class="rating-stars small">★★★★☆ (4.8)</span>
+                <div class="d-flex align-items-center gap-3 mb-2">
+                  <img src="images/avatar-2.jpg" alt="Фото: Дмитрий Серов" class="avatar-img" width="46" height="46" style="width: 46px; height: 46px;">
+                  <div>
+                    <strong class="d-block">Дмитрий Серов</strong>
+                    <small class="text-muted">Резидент • Архитектор</small>
+                  </div>
+                  <span class="rating-stars small ms-auto text-warning">★★★★☆ (4.8)</span>
                 </div>
-                <small class="text-muted d-block mb-2">Гость встречи</small>
                 <p class="mb-0 small text-secondary">
                   «Великолепный литературный вечер! Отдельное спасибо за чай с пряниками и подборку архивных фотографий Булгаковской Москвы на проекторе.»
                 </p>
@@ -506,8 +533,8 @@
             Goldabook — независимый книжный клуб для тех, кто ценит интеллектуальное общение, хорошую литературу и уютную атмосферу.
           </p>
           <p class="small text-light text-opacity-90 mb-0">
-            Студент: <strong class="text-white">Углев Михаил</strong>, группа <strong class="text-white">ЭФБО-10-25</strong>.<br>
-            <span class="text-warning">Практики 9–11 (КР №2 / КР №3)</span>
+            ООО «Голдабук Медиа» • ОГРН 1267700481920 • ИНН 7704891230<br>
+            <span class="text-warning">Премиальный закрытый клуб и лекторий совместного чтения</span>
           </p>
         </div>
         <div class="col-6 col-md-2 offset-md-1">
@@ -542,13 +569,19 @@
         </div>
       </div>
       <div class="pt-4 mt-4 border-top border-secondary border-opacity-50 d-flex flex-column flex-sm-row justify-content-between align-items-center small text-light text-opacity-75">
-        <p class="mb-0">&copy; 2026 Goldabook. Учебный проект по веб-разработке.</p>
-        <p class="mb-0 mt-2 mt-sm-0">HTML5 • CSS3 • Bootstrap 5.3 (Local Vendor)</p>
+        <p class="mb-0">&copy; 2026 Goldabook Inc. Все права защищены. <a href="order.html" class="text-light text-opacity-75 text-decoration-underline ms-1">Оферта</a> • <a href="contacts.html" class="text-light text-opacity-75 text-decoration-underline ms-1">Конфиденциальность</a></p>
+        <p class="mb-0 mt-2 mt-sm-0">Премиальный сервис совместного чтения и книжных дискуссий</p>
       </div>
     </div>
   </footer>
 
   <!-- Локальный Bootstrap Bundle JS -->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
+
+
+
+
+

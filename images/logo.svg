@@ -24,7 +24,9 @@
     <!-- Star on top -->
     <polygon points="45,0 47,6 53,6 48,10 50,16 45,12 40,16 42,10 37,6 43,6" fill="#ffd54f"/>
   </g>
-  <!-- Typography -->
-  <text x="105" y="44" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="28" fill="#ffffff" letter-spacing="1">GOLDA<tspan fill="url(#goldGrad)">BOOK</tspan></text>
+  <!-- Typography: GOLD (white), A (amber accent with spacing), BOOK (gold gradient) -->
+  <text x="105" y="44" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="28" letter-spacing="1">
+    <tspan fill="#ffffff">GOLD</tspan><tspan fill="#f97316" dx="3.5">A</tspan><tspan fill="url(#goldGrad)" dx="3.5">BOOK</tspan>
+  </text>
   <text x="106" y="60" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="11" fill="#cbd5e1" letter-spacing="2">КНИЖНЫЙ КЛУБ И СООБЩЕСТВО</text>
 </svg>

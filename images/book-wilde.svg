@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" width="300" height="420">
+  <defs>
+    <linearGradient id="bgWilde" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2e1065"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="420" rx="12" fill="url(#bgWilde)"/>
+  <rect x="15" y="15" width="270" height="390" rx="8" fill="none" stroke="#c084fc" stroke-width="2"/>
+  
+  <!-- Mirror / Cameo Graphic -->
+  <g transform="translate(150, 180)">
+    <ellipse cx="0" cy="0" rx="35" ry="50" fill="#3b0764" stroke="#c084fc" stroke-width="3"/>
+    <ellipse cx="0" cy="0" rx="28" ry="42" fill="#581c87"/>
+    <path d="M 0 -25 C 10 -25 15 -18 15 -10 C 15 -2 8 5 10 15 C 5 14 0 16 -3 20 L -12 20 C -12 12 -5 5 -5 -10 C -5 -18 -8 -25 0 -25 Z" fill="#e9d5ff"/>
+  </g>
+
+  <text x="150" y="65" font-family="sans-serif" font-size="14" font-weight="bold" fill="#e9d5ff" text-anchor="middle" letter-spacing="3">ОСКАР УАЙЛЬД</text>
+  <line x1="70" y1="78" x2="230" y2="78" stroke="#c084fc" stroke-width="1"/>
+  
+  <text x="150" y="300" font-family="'Georgia', serif" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">ПОРТРЕТ</text>
+  <text x="150" y="330" font-family="'Georgia', serif" font-size="24" font-weight="bold" fill="#c084fc" text-anchor="middle">ДОРИАНА ГРЕЯ</text>
+  <text x="150" y="360" font-family="sans-serif" font-size="10.5" font-weight="bold" fill="#e9d5ff" text-anchor="middle" letter-spacing="1">ВЕЧНАЯ МОЛОДОСТЬ ДУШИ</text>
+  <text x="150" y="382" font-family="sans-serif" font-size="9.5" fill="#94a3b8" text-anchor="middle" letter-spacing="1">ФИЛОСОФИЯ • ЭСТЕТИЗМ</text>
+</svg>

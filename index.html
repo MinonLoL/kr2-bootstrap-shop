@@ -3,8 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <!-- Предотвращение белой вспышки (Anti-FOUC): мгновенная установка темы ДО рендеринга стилей -->
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('goldabook-theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-bs-theme', t);
+      } catch(e) {}
+    })();
+  </script>
   <meta name="description" content="Goldabook — адаптивный сайт книжного клуба с подборками, рецензиями читателей и записью на регулярные встречи.">
-  <meta name="author" content="Углев Михаил, ЭФБО-10-25">
+  <meta name="author" content="Goldabook Inc.">
   <title>Goldabook — Главная | Книжный клуб и читательское сообщество</title>
 
   <!-- Локальное подключение Bootstrap (выполнение повышенного требования без CDN) -->
@@ -26,8 +37,8 @@
           <span>Книжный клуб Goldabook: сезон литературных дискуссий 2026 открыт!</span>
         </div>
         <div class="col-12 col-md-5 text-center text-md-end">
-          <span class="badge bg-warning text-dark me-2">ЭФБО-10-25</span>
-          <span class="text-secondary">Углев Михаил • КР №2 / КР №3</span>
+          <span class="badge bg-warning text-dark me-2">Закрытый клуб</span>
+          <span class="text-light text-opacity-90">📞 +7 (495) 890-25-10 • Москва &amp; Онлайн</span>
         </div>
       </div>
     </div>
@@ -89,6 +100,15 @@
               <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#quickOrderModal">Быстрая запись в клуб</a></li>
             </ul>
           </li>
+          <li class="nav-item ms-lg-3 mt-2 mt-lg-0 d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-outline-warning bookmarks-btn text-warning position-relative px-2 py-1" type="button" aria-label="Список чтения" title="Ваш список чтения">
+              ★ <span class="d-none d-xl-inline">Список чтения</span>
+              <span class="bookmarks-badge" style="display: none;">0</span>
+            </button>
+            <button class="theme-toggle-btn" type="button" aria-label="Переключить тему оформления" title="Светлая/Тёмная тема">
+              🌙
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -139,7 +159,7 @@
           <div class="col-12 col-lg-6 text-center">
             <div class="position-relative d-inline-block shadow-lg rounded-4 overflow-hidden">
               <img 
-                src="images/hero-club.svg" 
+                src="images/club-atmosphere.jpg" style="object-fit: cover; aspect-ratio: 16/10;" 
                 alt="Атмосфера встреч книжного клуба Goldabook" 
                 class="img-fluid rounded-4"
                 width="560" 
@@ -161,11 +181,11 @@
         </p>
       </div>
 
-      <div class="row g-4">
+            <div class="row g-4">
         <div class="col-12 col-md-6 col-lg-3">
           <div class="feature-box text-center">
-            <div class="feature-icon-circle bg-warning bg-opacity-25 text-warning mx-auto">
-              📖
+            <div class="feature-icon-circle icon-circle-gold mx-auto">
+              <img src="images/icon-selection.svg" alt="Иконка: Тщательный выбор" width="38" height="38" class="feature-icon-img" loading="lazy">
             </div>
             <h3 class="h5 fw-bold">Тщательный выбор</h3>
             <p class="text-muted small mb-0">
@@ -176,8 +196,8 @@
 
         <div class="col-12 col-md-6 col-lg-3">
           <div class="feature-box text-center">
-            <div class="feature-icon-circle bg-primary bg-opacity-10 text-primary mx-auto">
-              ☕
+            <div class="feature-icon-circle icon-circle-blue mx-auto">
+              <img src="images/icon-coffee.svg" alt="Иконка: Уютные встречи" width="38" height="38" class="feature-icon-img" loading="lazy">
             </div>
             <h3 class="h5 fw-bold">Уютные встречи</h3>
             <p class="text-muted small mb-0">
@@ -188,8 +208,8 @@
 
         <div class="col-12 col-md-6 col-lg-3">
           <div class="feature-box text-center">
-            <div class="feature-icon-circle bg-success bg-opacity-10 text-success mx-auto">
-              🎯
+            <div class="feature-icon-circle icon-circle-green mx-auto">
+              <img src="images/icon-discussion.svg" alt="Иконка: Модерация дискуссий" width="38" height="38" class="feature-icon-img" loading="lazy">
             </div>
             <h3 class="h5 fw-bold">Модерация дискуссий</h3>
             <p class="text-muted small mb-0">
@@ -200,8 +220,8 @@
 
         <div class="col-12 col-md-6 col-lg-3">
           <div class="feature-box text-center">
-            <div class="feature-icon-circle bg-danger bg-opacity-10 text-danger mx-auto">
-              🔄
+            <div class="feature-icon-circle icon-circle-rose mx-auto">
+              <img src="images/icon-swap.svg" alt="Иконка: Книжный своп" width="38" height="38" class="feature-icon-img" loading="lazy">
             </div>
             <h3 class="h5 fw-bold">Книжный своп</h3>
             <p class="text-muted small mb-0">
@@ -210,6 +230,7 @@
           </div>
         </div>
       </div>
+
     </section>
 
     <!-- Подборка месяца (Интерактивная Bootstrap Карусель) -->
@@ -311,12 +332,16 @@
           </div>
 
           <!-- Кнопки управления каруселью -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <button class="carousel-control-prev" type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide="prev" aria-label="Предыдущая книга">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
             <span class="visually-hidden">Предыдущий</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <button class="carousel-control-next" type="button" data-bs-target="#monthlyBooksCarousel" data-bs-slide="next" aria-label="Следующая книга">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
             <span class="visually-hidden">Следующий</span>
           </button>
         </div>
@@ -338,9 +363,7 @@
       <div class="row g-4">
         <!-- Карточка 1 -->
         <div class="col-12 col-md-6 col-lg-4">
-          <article class="card h-100 shadow-sm book-card">
-            <div class="book-cover-wrap">
-              <img src="images/book-master.svg" class="book-cover-img" alt="Обложка: Мастер и Маргарита">
+          <article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="master" data-book-title="Мастер и Маргарита" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-master.svg" class="book-cover-img" alt="Обложка: Мастер и Маргарита">
             </div>
             <div class="card-body d-flex flex-column">
               <div class="d-flex justify-content-between align-items-start mb-2">
@@ -370,9 +393,7 @@
 
         <!-- Карточка 2 -->
         <div class="col-12 col-md-6 col-lg-4">
-          <article class="card h-100 shadow-sm book-card">
-            <div class="book-cover-wrap">
-              <img src="images/book-1984.svg" class="book-cover-img" alt="Обложка: 1984">
+          <article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="1984" data-book-title="1984" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-1984.svg" class="book-cover-img" alt="Обложка: 1984">
             </div>
             <div class="card-body d-flex flex-column">
               <div class="d-flex justify-content-between align-items-start mb-2">
@@ -402,9 +423,7 @@
 
         <!-- Карточка 3 -->
         <div class="col-12 col-md-6 col-lg-4">
-          <article class="card h-100 shadow-sm book-card">
-            <div class="book-cover-wrap">
-              <img src="images/book-dune.svg" class="book-cover-img" alt="Обложка: Дюна">
+          <article class="card h-100 shadow-sm book-card"><div class="book-cover-wrap"><button class="btn-bookmark" data-book-id="dune" data-book-title="Дюна" type="button" aria-label="Добавить в список чтения" title="В список чтения">☆</button><img src="images/book-dune.svg" class="book-cover-img" alt="Обложка: Дюна">
             </div>
             <div class="card-body d-flex flex-column">
               <div class="d-flex justify-content-between align-items-start mb-2">
@@ -497,55 +516,97 @@
       </div>
     </section>
 
-    <!-- Отзывы резидентов клуба -->
-    <section class="container my-5 py-2" aria-labelledby="reviews-heading">
-      <div class="text-center mb-5">
-        <span class="text-uppercase fw-bold text-warning small tracking-wide">Голоса читателей</span>
-        <h2 id="reviews-heading" class="h1 fw-bold mt-2">Что говорят участники Goldabook</h2>
+    <!-- Блок доверия и отзывы резидентов клуба (Trust & Social Proof) -->
+    <section class="container my-5 py-3" aria-labelledby="reviews-heading">
+      
+      <!-- Метрики доверия клуба -->
+      <div class="row g-3 mb-5 text-center">
+        <div class="col-6 col-md-3">
+          <div class="p-3 rounded-4 bg-light h-100 border shadow-sm">
+            <div class="h2 fw-bold text-warning mb-1">1,250+</div>
+            <div class="small fw-semibold text-muted">Активных резидентов</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 rounded-4 bg-light h-100 border shadow-sm">
+            <div class="h2 fw-bold text-warning mb-1">98.4%</div>
+            <div class="small fw-semibold text-muted">Продлевают абонемент</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 rounded-4 bg-light h-100 border shadow-sm">
+            <div class="h2 fw-bold text-warning mb-1">180+</div>
+            <div class="small fw-semibold text-muted">Проведённых встреч</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="p-3 rounded-4 bg-light h-100 border shadow-sm">
+            <div class="h2 fw-bold text-warning mb-1">4.96 ★</div>
+            <div class="small fw-semibold text-muted">Оценка модераторов</div>
+          </div>
+        </div>
       </div>
 
+      <div class="text-center mb-5">
+        <span class="text-uppercase fw-bold text-warning small tracking-wide">Доверие и репутация</span>
+        <h2 id="reviews-heading" class="h1 fw-bold mt-2">Что говорят резиденты Goldabook</h2>
+        <p class="text-muted col-lg-6 mx-auto">
+          Настоящие отзывы топ-менеджеров, экспертов и книголюбов, которые находят в нашем клубе единомышленников и глубокий интеллектуальный диалог.
+        </p>
+      </div>
+
+      <!-- Карточки отзывов с реальными фотографиями -->
       <div class="row g-4">
+        <!-- Отзыв 1 -->
         <div class="col-12 col-md-4">
           <div class="card h-100 shadow-sm p-4 review-card">
             <div class="d-flex align-items-center gap-3 mb-3">
-              <img src="images/avatar-1.svg" alt="Аватар Елены" class="avatar-img">
+              <img src="images/avatar-1.jpg" alt="Фото: Елена Смирнова" class="avatar-img" width="56" height="56">
               <div>
                 <h3 class="h6 fw-bold mb-0">Елена Смирнова</h3>
-                <small class="text-muted">Резидент 2 года • 24 встречи</small>
+                <small class="text-muted d-block">ИТ-директор • В клубе 2 года</small>
+                <span class="badge bg-success bg-opacity-10 text-success small px-2 py-0">✓ Верифицированный резидент</span>
               </div>
             </div>
+            <div class="text-warning mb-2 fs-6">★★★★★ <small class="text-muted ms-1">(5.0)</small></div>
             <p class="text-muted small mb-0">
-              «В Goldabook я наконец нашла людей, с которыми можно спорить о литературе часами! Здесь царит удивительно тёплая и уважительная атмосфера.»
+              «Благодаря Goldabook чтение снова стало главным источником вдохновения. Разборы „Мастера и Маргариты“ открыли роман с абсолютно новой стороны. Тактичная, интеллигентная модерация и потрясающие люди!»
             </p>
           </div>
         </div>
 
+        <!-- Отзыв 2 -->
         <div class="col-12 col-md-4">
           <div class="card h-100 shadow-sm p-4 review-card">
             <div class="d-flex align-items-center gap-3 mb-3">
-              <img src="images/avatar-2.svg" alt="Аватар Алексея" class="avatar-img">
+              <img src="images/avatar-2.jpg" alt="Фото: Алексей Романов" class="avatar-img" width="56" height="56">
               <div>
                 <h3 class="h6 fw-bold mb-0">Алексей Романов</h3>
-                <small class="text-muted">Модератор научной фантастики</small>
+                <small class="text-muted d-block">Архитектор • 18 встреч</small>
+                <span class="badge bg-success bg-opacity-10 text-success small px-2 py-0">✓ Верифицированный резидент</span>
               </div>
             </div>
+            <div class="text-warning mb-2 fs-6">★★★★★ <small class="text-muted ms-1">(5.0)</small></div>
             <p class="text-muted small mb-0">
-              «Отличная организация встреч. Очень ценно, что перед обсуждением готовятся материалы и вопросы — беседа получается глубокой и содержательной.»
+              «Субботние встречи в лофте на Покровке — лучший ритуал недели. Ароматный кофе, подготовленные спикеры, исторический контекст и споры без токсичности. Настоящий клуб единомышленников в центре Москвы.»
             </p>
           </div>
         </div>
 
+        <!-- Отзыв 3 -->
         <div class="col-12 col-md-4">
           <div class="card h-100 shadow-sm p-4 review-card">
             <div class="d-flex align-items-center gap-3 mb-3">
-              <img src="images/avatar-3.svg" alt="Аватар Марии" class="avatar-img">
+              <img src="images/avatar-3.jpg" alt="Фото: Мария Власова" class="avatar-img" width="56" height="56">
               <div>
                 <h3 class="h6 fw-bold mb-0">Мария Власова</h3>
-                <small class="text-muted">Резидент 8 месяцев</small>
+                <small class="text-muted d-block">Литературный редактор</small>
+                <span class="badge bg-success bg-opacity-10 text-success small px-2 py-0">✓ Верифицированный резидент</span>
               </div>
             </div>
+            <div class="text-warning mb-2 fs-6">★★★★★ <small class="text-muted ms-1">(5.0)</small></div>
             <p class="text-muted small mb-0">
-              «Книжный своп — отдельная любовь! Поменяла прочитанные детективы на редкое издание Маркеса. Очень рекомендую вступить в клуб!»
+              «Онлайн-трансляции ничуть не уступают очным обсуждениям. Качественный звук, бережное ведение беседы и уникальный книжный своп редких изданий. Лучшая инвестиция в своё развитие за последний год.»
             </p>
           </div>
         </div>
@@ -618,8 +679,8 @@
             Goldabook — независимый книжный клуб для тех, кто ценит интеллектуальное общение, хорошую литературу и уютную атмосферу.
           </p>
           <p class="small text-light text-opacity-90 mb-0">
-            Студент: <strong class="text-white">Углев Михаил</strong>, группа <strong class="text-white">ЭФБО-10-25</strong>.<br>
-            <span class="text-warning">Практики 9–11 (КР №2 / КР №3)</span>
+            ООО «Голдабук Медиа» • ОГРН 1267700481920 • ИНН 7704891230<br>
+            <span class="text-warning">Премиальный закрытый клуб и лекторий совместного чтения</span>
           </p>
         </div>
         <div class="col-6 col-md-2 offset-md-1">
@@ -654,13 +715,19 @@
         </div>
       </div>
       <div class="pt-4 mt-4 border-top border-secondary border-opacity-50 d-flex flex-column flex-sm-row justify-content-between align-items-center small text-light text-opacity-75">
-        <p class="mb-0">&copy; 2026 Goldabook. Учебный проект по веб-разработке.</p>
-        <p class="mb-0 mt-2 mt-sm-0">HTML5 • CSS3 • Bootstrap 5.3 (Local Vendor)</p>
+        <p class="mb-0">&copy; 2026 Goldabook Inc. Все права защищены. <a href="order.html" class="text-light text-opacity-75 text-decoration-underline ms-1">Оферта</a> • <a href="contacts.html" class="text-light text-opacity-75 text-decoration-underline ms-1">Конфиденциальность</a></p>
+        <p class="mb-0 mt-2 mt-sm-0">Премиальный сервис совместного чтения и книжных дискуссий</p>
       </div>
     </div>
   </footer>
 
   <!-- Локальное подключение скрипта Bootstrap Bundle (включает Popper) -->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
+
+
+
+
+

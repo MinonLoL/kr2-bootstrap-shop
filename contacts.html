@@ -283,73 +283,292 @@
 
     </div>
 
-    <!-- Раздел часто задаваемых вопросов (Accordion) -->
+    <!-- Раздел часто задаваемых вопросов (Bootstrap Accordion) -->
     <section class="my-5" id="faq" aria-labelledby="faq-general-title">
       <div class="text-center mb-4">
+        <span class="badge bg-warning text-dark px-3 py-2 text-uppercase mb-2">База знаний</span>
         <h2 id="faq-general-title" class="h3 fw-bold">Часто задаваемые вопросы о клубе Goldabook</h2>
-        <p class="text-muted small">Всё, что важно знать перед первым визитом</p>
+        <p class="text-muted col-lg-7 mx-auto">
+          Собрали подробные ответы о членстве, стоимости, регламенте встреч и атмосфере в нашем литературном пространстве.
+        </p>
       </div>
 
       <div class="accordion shadow-sm" id="contactsFaqAccordion">
+        
+        <!-- Вопрос 1 -->
         <div class="accordion-item">
           <h3 class="accordion-header" id="faqHead1">
             <button 
-              class="accordion-button" 
+              class="accordion-button fw-semibold" 
               type="button" 
               data-bs-toggle="collapse" 
               data-bs-target="#faqCollapse1" 
               aria-expanded="true" 
               aria-controls="faqCollapse1"
             >
-              Сколько стоит участие в клубе?
+              1. Сколько стоит участие в клубе и какие есть форматы членства?
             </button>
           </h3>
           <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHead1" data-bs-parent="#contactsFaqAccordion">
-            <div class="accordion-body text-secondary small">
-              Участие в онлайн-встречах полностью бесплатное. При очных встречах в лофте взимается организационный сбор 400 руб., покрывающий аренду зала, чай, кофе и угощения.
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">В клубе Goldabook действует прозрачная система посещения:</p>
+              <ul class="mb-3 ps-3">
+                <li class="mb-1"><strong>Разовый гостевой билет (Single Pass) — 1 500 ₽:</strong> участие в очной встрече (2,5 часа), авторский кофе, листовой чай, свежая выпечка и конспект-памятка к произведению.</li>
+                <li class="mb-1"><strong>Абонемент «Резидент» (месяц) — 4 900 ₽:</strong> 4 встречи в месяц, неограниченный доступ к закрытому Telegram-клубу, бронь книг из клубной библиотеки и скидка 15% на подарочные издания.</li>
+                <li class="mb-1"><strong>Клубная карта «Патрон» (Gold Tier) — 9 900 ₽:</strong> VIP-места за круглым столом, подарочный бокс с книгой месяца в твёрдом переплёте и закрытые камерные ужины с писателями и переводчиками.</li>
+                <li class="mb-0"><strong>Онлайн-участие в Zoom — 750 ₽:</strong> доступ к интерактивной онлайн-сессии с модератором из любой точки планеты.</li>
+              </ul>
+              <div class="alert alert-light border small mb-0">
+                💡 Оформить билет или абонемент можно онлайн на странице <a href="order.html" class="text-warning fw-bold text-decoration-none">Встречи и запись</a> с моментальным получением электронного билета.
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- Вопрос 2 -->
         <div class="accordion-item">
           <h3 class="accordion-header" id="faqHead2">
             <button 
-              class="accordion-button collapsed" 
+              class="accordion-button collapsed fw-semibold" 
               type="button" 
               data-bs-toggle="collapse" 
               data-bs-target="#faqCollapse2" 
               aria-expanded="false" 
               aria-controls="faqCollapse2"
             >
-              Как выбираются книги на следующий месяц?
+              2. Как проходит типичная субботняя встреча и сколько она длится?
             </button>
           </h3>
           <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHead2" data-bs-parent="#contactsFaqAccordion">
-            <div class="accordion-body text-secondary small">
-              В 20-х числах каждого месяца мы открываем голосование в нашем закрытом Telegram-чате. Любой резидент может предложить книгу, а в шорт-лист попадают 4 наиболее популярных варианта.
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">Каждая очная встреча длится <strong>2,5 часа</strong> и структурирована по чёткому, но живому регламенту:</p>
+              <ol class="mb-3 ps-3">
+                <li class="mb-1"><strong>Вводная часть (20 минут):</strong> сбор гостей в лофте на Покровке, приветственный кофе/чай, знакомство с новыми резидентами и вводная лекция модератора об авторе и историческом контексте романа.</li>
+                <li class="mb-1"><strong>Основная дискуссия (70 минут):</strong> разбор ключевых конфликтов, моральных дилемм персонажей и философских подтекстов по заранее подготовленному опроснику.</li>
+                <li class="mb-1"><strong>Кофе-пауза и книжный своп (20 минут):</strong> свободное общение, обмен мнениями тет-а-тет и выбор книг на полке свободного книгообмена.</li>
+                <li class="mb-0"><strong>Финальные инсайты и голосование (20 минут):</strong> подведение итогов, формулирование личных выводов каждого участника и выбор книги на будущий месяц.</li>
+              </ol>
             </div>
           </div>
         </div>
 
+        <!-- Вопрос 3 -->
         <div class="accordion-item">
           <h3 class="accordion-header" id="faqHead3">
             <button 
-              class="accordion-button collapsed" 
+              class="accordion-button collapsed fw-semibold" 
               type="button" 
               data-bs-toggle="collapse" 
               data-bs-target="#faqCollapse3" 
               aria-expanded="false" 
               aria-controls="faqCollapse3"
             >
-              Что делать, если я живу в другом городе или стране?
+              3. Что делать, если я не успел(а) дочитать книгу до дня встречи?
             </button>
           </h3>
           <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHead3" data-bs-parent="#contactsFaqAccordion">
-            <div class="accordion-body text-secondary small">
-              У нас активное онлайн-крыло! Каждую вторую субботу месяца встречи проходят в Zoom. У нас есть постоянные участники из Санкт-Петербурга, Казани, Екатеринбурга, Минска и Тбилиси.
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">
+                Приходите обязательно! По статистике около <strong>25–30% участников</strong> приходят, прочитав книгу частично (например, первую треть или половину). 
+              </p>
+              <p class="mb-2">
+                Благодаря вводному слову модератора вы легко сориентируетесь в сюжете и сможете полноценно дискутировать о стилистике автора, затронутых проблемах и образах главных героев. 
+              </p>
+              <p class="small text-muted mb-0">
+                <em>Обратите внимание:</em> во второй половине встречи участники неизбежно касаются кульминации и развязки, поэтому возможны спойлеры финала.
+              </p>
             </div>
           </div>
         </div>
+
+        <!-- Вопрос 4 -->
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead4">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faqCollapse4" 
+              aria-expanded="false" 
+              aria-controls="faqCollapse4"
+            >
+              4. Обязательно ли выступать публично, если я интроверт и стесняюсь?
+            </button>
+          </h3>
+          <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHead4" data-bs-parent="#contactsFaqAccordion">
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">
+                <strong>Никакого принуждения!</strong> В Goldabook царит бережная атмосфера взаимного уважения. У нас нет строгих экзаменов и никто не вызывает участников «к доске».
+              </p>
+              <p class="mb-0">
+                Многие наши резиденты на первой встрече выбирают формат «слушателя»: пьют кофе в мягком кресле, слушают мнения других и делают заметки в блокноте. Вы вступаете в диалог только тогда, когда почувствуете искреннее желание поделиться своей мыслью.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Вопрос 5 -->
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead5">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faqCollapse5" 
+              aria-expanded="false" 
+              aria-controls="faqCollapse5"
+            >
+              5. Как устроен «Книжный своп» (Book Swap) и библиотека лофта?
+            </button>
+          </h3>
+          <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHead5" data-bs-parent="#contactsFaqAccordion">
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">
+                В нашем лофте на Покровке собрано более <strong>1 200 коллекционных томов</strong> классической и современной прозы. 
+              </p>
+              <ul class="mb-0 ps-3">
+                <li class="mb-1"><strong>Абонементная библиотека:</strong> резиденты клуба могут бесплатно брать до 2 изданий на дом на срок до 30 календарных дней.</li>
+                <li class="mb-0"><strong>Свободный книжный своп:</strong> на любую субботнюю встречу вы можете принести до 3 прочитанных книг из своей домашней библиотеки в хорошем состоянии и обменять их на любые понравившиеся книги других резидентов навсегда.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Вопрос 6 -->
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead6">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faqCollapse6" 
+              aria-expanded="false" 
+              aria-controls="faqCollapse6"
+            >
+              6. Как выбираются книги для чтения на будущий месяц?
+            </button>
+          </h3>
+          <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHead6" data-bs-parent="#contactsFaqAccordion">
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">
+                Выбор книг происходит по демократическому принципу:
+              </p>
+              <ol class="mb-0 ps-3">
+                <li class="mb-1">С 15 по 20 число месяца кураторы клуба отбирают шорт-лист из 4 разноплановых произведений (например: жемчужина классики, культовая антиутопия, лауреат Букеровской премии и интеллектуальная фантастика).</li>
+                <li class="mb-1">Открывается открытое голосование в нашем Telegram-сообществе.</li>
+                <li class="mb-0">Победившая книга объявляется главным произведением месяца, а участникам высылается рекомендованный недельный план чтения (Reading Pacing Guide).</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Вопрос 7 -->
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead7">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faqCollapse7" 
+              aria-expanded="false" 
+              aria-controls="faqCollapse7"
+            >
+              7. Где именно проходят встречи и как добраться до лофта?
+            </button>
+          </h3>
+          <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHead7" data-bs-parent="#contactsFaqAccordion">
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">
+                Все очные митапы проходят в атмосферном историческом лофте «Мансарда»: 
+                <strong>Москва, ул. Покровка, д. 18</strong> (вход через старинную чугунную арку во внутренний тихий двор, подъезд 3, 3-й этаж).
+              </p>
+              <ul class="mb-0 ps-3">
+                <li class="mb-1"><strong>Пешком от метро:</strong> 7 минут спокойным шагом от станций «Чистые пруды», «Тургеневская» или «Китай-город».</li>
+                <li class="mb-0"><strong>На автомобиле:</strong> городская платная парковка на Покровке и в прилегающих переулках (Колпачный, Потаповский, Покровский бульвар).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Вопрос 8 -->
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead8">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faqCollapse8" 
+              aria-expanded="false" 
+              aria-controls="faqCollapse8"
+            >
+              8. Можно ли подарить билет или членство в клубе другу?
+            </button>
+          </h3>
+          <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHead8" data-bs-parent="#contactsFaqAccordion">
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">
+                Да, членство в книжном клубе — один из самых популярных и душевных интеллектуальных подарков. У нас есть два варианта:
+              </p>
+              <ul class="mb-0 ps-3">
+                <li class="mb-1"><strong>Электронный подарочный сертификат:</strong> отправляется на email в красивом дизайнерском PDF с персональным поздравлением и уникальным кодом активации.</li>
+                <li class="mb-0"><strong>Физический подарочный набор:</strong> крафтовый конверт с сургучной печатью Goldabook, фирменной латунной закладкой и клубной картой с открытой датой на 1 год.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Вопрос 9 -->
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead9">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faqCollapse9" 
+              aria-expanded="false" 
+              aria-controls="faqCollapse9"
+            >
+              9. Как устроены онлайн-встречи для участников из других городов и стран?
+            </button>
+          </h3>
+          <div id="faqCollapse9" class="accordion-collapse collapse" aria-labelledby="faqHead9" data-bs-parent="#contactsFaqAccordion">
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">
+                Каждую вторую субботу месяца мы проводим международную сессию в Zoom. У нас постоянное сообщество резидентов из Санкт-Петербурга, Екатеринбурга, Казани, Минска, Еревана и Тбилиси.
+              </p>
+              <p class="mb-0">
+                За 2 часа до начала модератор высылает в чат защищённую ссылку на конференцию, презентацию со слайдами и тезисный план. Качество трансляции — Full HD, со студийным звуком модератора.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Вопрос 10 -->
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="faqHead10">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#faqCollapse10" 
+              aria-expanded="false" 
+              aria-controls="faqCollapse10"
+            >
+              10. Нужна ли специальная филологическая подготовка?
+            </button>
+          </h3>
+          <div id="faqCollapse10" class="accordion-collapse collapse" aria-labelledby="faqHead10" data-bs-parent="#contactsFaqAccordion">
+            <div class="accordion-body text-secondary">
+              <p class="mb-2">
+                <strong>Ни в коем случае!</strong> Более 85% резидентов Goldabook — это IT-специалисты, предприниматели, дизайнеры, юристы, врачи и студенты.
+              </p>
+              <p class="mb-0">
+                Клуб создан для живого человеческого общения, обмена жизненным опытом и обсуждения глубоких смыслов, а не для академических споров. Модератор всегда объясняет термины простым и увлекательным языком.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 

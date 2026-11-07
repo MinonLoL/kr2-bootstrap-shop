@@ -372,15 +372,17 @@
     <!-- Правила участия в клубе (Bootstrap Accordion) -->
     <section class="my-5" aria-labelledby="rules-heading">
       <div class="text-center mb-4">
-        <h2 id="rules-heading" class="h3 fw-bold">Правила участия в книжных встречах</h2>
-        <p class="text-muted small">Простые принципы, делающие наши беседы комфортными для каждого</p>
+        <span class="badge bg-warning text-dark px-3 py-2 text-uppercase mb-2">Регламент</span>
+        <h2 id="rules-heading" class="h3 fw-bold">Правила участия и регламент книжных встреч</h2>
+        <p class="text-muted small">Принципы, делающие наши беседы комфортными, глубокими и безопасными для каждого</p>
       </div>
 
       <div class="accordion shadow-sm" id="rulesAccordion">
+        
         <div class="accordion-item">
           <h3 class="accordion-header" id="ruleHeading1">
             <button 
-              class="accordion-button" 
+              class="accordion-button fw-semibold" 
               type="button" 
               data-bs-toggle="collapse" 
               data-bs-target="#ruleCollapse1" 
@@ -392,7 +394,7 @@
           </h3>
           <div id="ruleCollapse1" class="accordion-collapse collapse show" aria-labelledby="ruleHeading1" data-bs-parent="#rulesAccordion">
             <div class="accordion-body text-secondary small">
-              В искусстве нет «единственно правильного» восприятия. Мы внимательно выслушиваем каждого спикера, не перебиваем и критикуем идеи, а не личности.
+              В литературе нет единственно верной точки зрения. Мы внимательно выслушиваем каждого спикера, не перебиваем и критикуем идеи и поступки персонажей, но никогда — личность собеседника.
             </div>
           </div>
         </div>
@@ -400,19 +402,19 @@
         <div class="accordion-item">
           <h3 class="accordion-header" id="ruleHeading2">
             <button 
-              class="accordion-button collapsed" 
+              class="accordion-button collapsed fw-semibold" 
               type="button" 
               data-bs-toggle="collapse" 
               data-bs-target="#ruleCollapse2" 
               aria-expanded="false" 
               aria-controls="ruleCollapse2"
             >
-              2. Регламент выступлений и тайминг
+              2. Тайминг и регламент выступлений
             </button>
           </h3>
           <div id="ruleCollapse2" class="accordion-collapse collapse" aria-labelledby="ruleHeading2" data-bs-parent="#rulesAccordion">
             <div class="accordion-body text-secondary small">
-              Каждая встреча длится 2 часа с 15-минутным перерывом на кофе. Модератор следит за тем, чтобы у всех присутствующих было время высказаться (по 3–5 минут на реплику).
+              Каждая встреча длится 2,5 часа с 20-минутным перерывом на кофе и свободное общение. Модератор следит за тем, чтобы каждый желающий успел высказаться (регламент реплики — от 2 до 4 минут).
             </div>
           </div>
         </div>
@@ -420,22 +422,83 @@
         <div class="accordion-item">
           <h3 class="accordion-header" id="ruleHeading3">
             <button 
-              class="accordion-button collapsed" 
+              class="accordion-button collapsed fw-semibold" 
               type="button" 
               data-bs-toggle="collapse" 
               data-bs-target="#ruleCollapse3" 
               aria-expanded="false" 
               aria-controls="ruleCollapse3"
             >
-              3. Книжный своп и подарки
+              3. Книжный своп и пополнение библиотеки
             </button>
           </h3>
           <div id="ruleCollapse3" class="accordion-collapse collapse" aria-labelledby="ruleHeading3" data-bs-parent="#rulesAccordion">
             <div class="accordion-body text-secondary small">
-              На каждую очную встречу вы можете принести до трёх прочитанных книг в хорошем состоянии, чтобы обменять их на понравившиеся издания других гостей.
+              На любую очную встречу вы можете принести до 3 прочитанных книг из личной библиотеки в хорошем состоянии, чтобы обменять их на полке свободного свопа на любые понравившиеся книги других резидентов.
             </div>
           </div>
         </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="ruleHeading4">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#ruleCollapse4" 
+              aria-expanded="false" 
+              aria-controls="ruleCollapse4"
+            >
+              4. Правила переноса и отмены бронирования
+            </button>
+          </h3>
+          <div id="ruleCollapse4" class="accordion-collapse collapse" aria-labelledby="ruleHeading4" data-bs-parent="#rulesAccordion">
+            <div class="accordion-body text-secondary small">
+              Если ваши планы изменились, вы можете бесплатно перенести участие на любую другую встречу или вернуть 100% стоимости билета, предупредив куратора не позднее чем за 24 часа до начала события.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="ruleHeading5">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#ruleCollapse5" 
+              aria-expanded="false" 
+              aria-controls="ruleCollapse5"
+            >
+              5. Атмосфера лофта и комфорт резидентов
+            </button>
+          </h3>
+          <div id="ruleCollapse5" class="accordion-collapse collapse" aria-labelledby="ruleHeading5" data-bs-parent="#rulesAccordion">
+            <div class="accordion-body text-secondary small">
+              В лофте действует мягкий дресс-код Smart Casual. Мы просим переводить мобильные телефоны в бесшумный режим на время основной дискуссии, чтобы не нарушать глубину погружения в литературный мир.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h3 class="accordion-header" id="ruleHeading6">
+            <button 
+              class="accordion-button collapsed fw-semibold" 
+              type="button" 
+              data-bs-toggle="collapse" 
+              data-bs-target="#ruleCollapse6" 
+              aria-expanded="false" 
+              aria-controls="ruleCollapse6"
+            >
+              6. Подготовка к встрече: заметки и цитаты
+            </button>
+          </h3>
+          <div id="ruleCollapse6" class="accordion-collapse collapse" aria-labelledby="ruleHeading6" data-bs-parent="#rulesAccordion">
+            <div class="accordion-body text-secondary small">
+              Мы рекомендуем читать книгу с карандашом или стикерами, отмечая самые яркие цитаты и спорные моменты. За 3 дня до встречи в закрытый чат высылается опросник модератора с ключевыми темами для размышлений.
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 

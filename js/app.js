@@ -24,6 +24,13 @@ function initThemeSwitcher() {
 
   applyTheme(initialTheme);
 
+  // Автоматическая реакция на переключение системной темы ОС (если не задано вручную)
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem(THEME_KEY)) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
   // Обработчик клика на кнопки переключения темы
   document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -47,6 +54,15 @@ function applyTheme(theme) {
     btn.setAttribute('aria-label', theme === 'dark' ? 'Переключить на светлую тему' : 'Переключить на тёмную тему');
     btn.setAttribute('title', theme === 'dark' ? 'Светлая тема' : 'Тёмная тема');
   });
+
+  // Динамическое обновление цвета статус-бара мобильных браузеров
+  let metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (!metaTheme) {
+    metaTheme = document.createElement('meta');
+    metaTheme.name = 'theme-color';
+    document.head.appendChild(metaTheme);
+  }
+  metaTheme.setAttribute('content', theme === 'dark' ? '#090d16' : '#f8fafc');
 }
 
 /* ==========================================================================

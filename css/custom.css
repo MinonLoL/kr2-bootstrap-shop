@@ -969,6 +969,45 @@ footer a:hover,
 footer a:focus {
   color: #fbbf24;
 }
+/* Кликабельные контакты */
+.footer-contact-title {
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+.footer-contact-title:hover,
+.footer-contact-title:focus {
+  color: #fbbf24 !important;
+}
+
+.footer-contact-link {
+  color: rgba(248, 249, 250, 0.9) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 2px 0;
+}
+
+.footer-contact-link:hover,
+.footer-contact-link:focus {
+  color: #fbbf24 !important;
+  transform: translateX(4px);
+}
+
+.topbar-contact-link {
+  color: rgba(248, 249, 250, 0.9) !important;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.topbar-contact-link:hover,
+.topbar-contact-link:focus {
+  color: #fbbf24 !important;
+}
 
 @media (max-width: 767.98px) {
   .hero-section {

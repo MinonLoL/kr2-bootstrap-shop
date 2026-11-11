@@ -1437,6 +1437,62 @@ footer a:focus {
   display: block;
 }
 
+/* Карточка с фотографией здания читальни (Покровка, 18) */
+.contacts-building-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contacts-building-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2) !important;
+}
+
+.contacts-building-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background-color: #1e293b;
+  overflow: hidden;
+}
+
+.contacts-building-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contacts-building-card:hover .contacts-building-img {
+  transform: scale(1.04);
+}
+
+.contacts-building-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f8fafc;
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+[data-bs-theme="dark"] .contacts-building-badge {
+  background: rgba(15, 23, 42, 0.92);
+}
+
 /* ==========================================================================
    Фича 5: Плавное появление блоков при прокрутке (Scroll Reveal)
    ========================================================================== */

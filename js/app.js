@@ -79,28 +79,26 @@ function initThemeSwitcher() {
         Math.max(y, window.innerHeight - y)
       );
 
+      // Задаем точные координаты клика и радиус в CSS переменные ДО запуска перехода,
+      // чтобы псевдоэлемент ::view-transition-new(root) сразу рендерился с clip-path: circle(0px)
+      // и не создавал вспышки/моргания в первом кадре.
+      document.documentElement.style.setProperty('--theme-x', `${Math.round(x)}px`);
+      document.documentElement.style.setProperty('--theme-y', `${Math.round(y)}px`);
+      document.documentElement.style.setProperty('--theme-r', `${Math.ceil(endRadius)}px`);
+
       const transition = document.startViewTransition(() => {
         applyTheme(newTheme);
         localStorage.setItem(THEME_KEY, newTheme);
       });
 
-      transition.ready.then(() => {
-        document.documentElement.animate(
-          {
-            clipPath: [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${endRadius}px at ${x}px ${y}px)`
-            ]
-          },
-          {
-            duration: 520,
-            easing: 'ease-in-out',
-            pseudoElement: '::view-transition-new(root)'
-          }
-        );
-      }).catch(() => {});
-
-      showToast('Тема оформления', `Включена ${newTheme === 'dark' ? 'тёмная' : 'светлая'} тема`, 'info');
+      // Показываем уведомление только после завершения перехода, чтобы не накладываться на анимацию
+      if (transition && transition.finished) {
+        transition.finished.finally(() => {
+          showToast('Тема оформления', `Включена ${newTheme === 'dark' ? 'тёмная' : 'светлая'} тема`, 'info');
+        });
+      } else {
+        showToast('Тема оформления', `Включена ${newTheme === 'dark' ? 'тёмная' : 'светлая'} тема`, 'info');
+      }
     });
   });
 }

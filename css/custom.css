@@ -1320,16 +1320,28 @@ footer a:focus {
    ========================================================================== */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
   mix-blend-mode: normal;
 }
 
 ::view-transition-old(root) {
+  animation: none;
   z-index: 1;
 }
 
 ::view-transition-new(root) {
   z-index: 9999;
+  /* Исходное состояние: нулевой круг в точке клика для исключения моргания до старта анимации */
+  clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%));
+  animation: theme-circle-reveal 0.48s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes theme-circle-reveal {
+  0% {
+    clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
+  100% {
+    clip-path: circle(var(--theme-r, 150vmax) at var(--theme-x, 50%) var(--theme-y, 50%));
+  }
 }
 
 .theme-toggle-btn {
@@ -1341,6 +1353,11 @@ footer a:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+    clip-path: none !important;
+  }
   .theme-toggle-btn {
     transition: none !important;
   }

@@ -1298,3 +1298,137 @@ footer a:focus {
 [data-bs-theme="dark"] .text-warning:not(.badge):not(.btn) {
   color: #fbbf24 !important;
 }
+
+/* ==========================================================================
+   Фича 1: Плавное затухание при смене страниц каталога
+   ========================================================================== */
+#catalog-grid {
+  transition: opacity 0.22s ease-in-out;
+}
+
+#catalog-grid.is-fading {
+  opacity: 0.15;
+}
+
+#catalog-shown-info {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================================
+   Фича 2: Анимация смены темы (View Transitions API + вращение иконки)
+   ========================================================================== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.theme-toggle-btn {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease !important;
+}
+
+.theme-toggle-btn.rotating {
+  transform: rotate(360deg) scale(1.15) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle-btn {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   Фича 3: Полоса прогресса прокрутки (Scroll Progress Bar)
+   ========================================================================== */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--gb-gold);
+  transform-origin: 0% 50%;
+  transform: scaleX(0);
+  z-index: 1070;
+  pointer-events: none;
+  box-shadow: 0 0 10px var(--gb-gold-glow);
+  transition: transform 0.08s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress-bar {
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   Фича 4: Яндекс.Карты (Схема проезда)
+   ========================================================================== */
+.contacts-map-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.contacts-map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background-color: #1e293b;
+  overflow: hidden;
+}
+
+.contacts-map-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.96));
+  z-index: 2;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.contacts-map-placeholder.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.contacts-map-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ==========================================================================
+   Фича 5: Плавное появление блоков при прокрутке (Scroll Reveal)
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

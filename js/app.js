@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initOrderCalculator();
   initBackToTop();
   initBookDetailsModal();
+  initScrollProgress();
+  initContactsMap();
+  initScrollReveal();
 });
 
 /* ==========================================================================
@@ -31,18 +34,73 @@ function initThemeSwitcher() {
     }
   });
 
-  // Обработчик клика на кнопки переключения темы
+  // Обработчик клика на кнопки переключения темы с View Transitions API (круговое раскрытие)
   document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.body.classList.add('theme-animating');
+    btn.addEventListener('click', (event) => {
       const currentTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(newTheme);
-      localStorage.setItem(THEME_KEY, newTheme);
+      const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Вращение значка 🌙 / ☀️
+      btn.classList.add('rotating');
+      setTimeout(() => btn.classList.remove('rotating'), 500);
+
+      // При prefers-reduced-motion переключаем тему мгновенно без анимации
+      if (isReducedMotion) {
+        applyTheme(newTheme);
+        localStorage.setItem(THEME_KEY, newTheme);
+        showToast('Тема оформления', `Включена ${newTheme === 'dark' ? 'тёмная' : 'светлая'} тема`, 'info');
+        return;
+      }
+
+      // Если браузер не поддерживает View Transitions API — плавное изменение цветов через CSS
+      if (!document.startViewTransition) {
+        document.body.classList.add('theme-animating');
+        applyTheme(newTheme);
+        localStorage.setItem(THEME_KEY, newTheme);
+        showToast('Тема оформления', `Включена ${newTheme === 'dark' ? 'тёмная' : 'светлая'} тема`, 'info');
+        setTimeout(() => {
+          document.body.classList.remove('theme-animating');
+        }, 400);
+        return;
+      }
+
+      // View Transitions API: круговое раскрытие темы из точки клика
+      const rect = btn.getBoundingClientRect();
+      const x = (event && typeof event.clientX === 'number' && event.clientX > 0)
+        ? event.clientX
+        : (rect.left + rect.width / 2);
+      const y = (event && typeof event.clientY === 'number' && event.clientY > 0)
+        ? event.clientY
+        : (rect.top + rect.height / 2);
+
+      const endRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      const transition = document.startViewTransition(() => {
+        applyTheme(newTheme);
+        localStorage.setItem(THEME_KEY, newTheme);
+      });
+
+      transition.ready.then(() => {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`
+            ]
+          },
+          {
+            duration: 520,
+            easing: 'ease-in-out',
+            pseudoElement: '::view-transition-new(root)'
+          }
+        );
+      }).catch(() => {});
+
       showToast('Тема оформления', `Включена ${newTheme === 'dark' ? 'тёмная' : 'светлая'} тема`, 'info');
-      setTimeout(() => {
-        document.body.classList.remove('theme-animating');
-      }, 300);
     });
   });
 }
@@ -157,6 +215,7 @@ function initLiveCatalogFilter() {
   const sortSelect = document.getElementById('filter-sort');
   const catalogGrid = document.getElementById('catalog-grid') || document.querySelector('.row.g-4');
   const countDisplay = document.querySelector('.catalog-count-display');
+  const shownInfo = document.getElementById('catalog-shown-info');
   const paginationNav = document.getElementById('catalog-pagination-nav');
   const paginationList = document.getElementById('catalog-pagination');
 
@@ -167,8 +226,57 @@ function initLiveCatalogFilter() {
 
   const ITEMS_PER_PAGE = 3;
   let currentPage = 1;
+  let isInitialLoad = true;
 
-  function render() {
+  // Считывание параметров из URL
+  function readParamsFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const p = parseInt(params.get('page'), 10);
+    currentPage = (!isNaN(p) && p > 0) ? p : 1;
+
+    if (genreSelect && params.has('genre')) {
+      genreSelect.value = params.get('genre');
+    }
+    if (searchInput && params.has('search')) {
+      searchInput.value = params.get('search');
+    }
+    if (sortSelect && params.has('sort')) {
+      sortSelect.value = params.get('sort');
+    }
+  }
+
+  // Обновление URL (сочетание ?page=, ?genre=, ?search=, ?sort=)
+  function syncURL(push = true) {
+    const params = new URLSearchParams();
+    if (currentPage > 1) {
+      params.set('page', currentPage);
+    }
+    const currentGenre = genreSelect ? genreSelect.value : 'all';
+    if (currentGenre && currentGenre !== 'all') {
+      params.set('genre', currentGenre);
+    }
+    const currentSearch = searchInput ? (searchInput.value || '').trim() : '';
+    if (currentSearch) {
+      params.set('search', currentSearch);
+    }
+    const currentSort = sortSelect ? sortSelect.value : 'rating-desc';
+    if (currentSort && currentSort !== 'rating-desc') {
+      params.set('sort', currentSort);
+    }
+
+    const queryStr = params.toString();
+    const newURL = window.location.pathname + (queryStr ? '?' + queryStr : '');
+
+    if (push) {
+      if (newURL !== (window.location.pathname + window.location.search)) {
+        history.pushState({ page: currentPage, genre: currentGenre, search: currentSearch, sort: currentSort }, '', newURL);
+      }
+    } else {
+      history.replaceState({ page: currentPage, genre: currentGenre, search: currentSearch, sort: currentSort }, '', newURL);
+    }
+  }
+
+  function render(pushUrl = true, shouldScroll = false, withFade = true) {
     const query = searchInput ? (searchInput.value || '').trim().toLowerCase() : '';
     const selectedGenre = genreSelect ? genreSelect.value : 'all';
     const sortBy = sortSelect ? sortSelect.value : 'rating-desc';
@@ -204,63 +312,100 @@ function initLiveCatalogFilter() {
       currentPage = 1;
     }
 
-    // 3. Отображение элементов текущей страницы
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    const currentItems = filtered.slice(startIndex, endIndex);
+    // Синхронизация URL
+    if (pushUrl) {
+      syncURL(true);
+    } else {
+      syncURL(false);
+    }
 
-    // Скрываем все книги
-    bookItems.forEach(item => {
-      item.style.display = 'none';
-    });
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Показываем только книги текущей страницы и упорядочиваем их в DOM
-    currentItems.forEach(item => {
-      item.style.display = '';
-      catalogGrid.appendChild(item);
-    });
+    // Функция обновления отображаемых книг
+    const updateDOM = () => {
+      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+      const endIndex = startIndex + ITEMS_PER_PAGE;
+      const currentItems = filtered.slice(startIndex, endIndex);
 
-    // 4. Обновляем счетчик
-    if (countDisplay) {
+      // Скрываем все книги
+      bookItems.forEach(item => {
+        item.style.display = 'none';
+      });
+
+      // Показываем только книги текущей страницы
+      currentItems.forEach(item => {
+        item.style.display = '';
+        catalogGrid.appendChild(item);
+      });
+
+      // 4. Подпись под сеткой: «Показано X–Y из Z»
+      if (shownInfo) {
+        if (filtered.length === 0) {
+          shownInfo.textContent = 'Книги не найдены';
+        } else {
+          const startNum = startIndex + 1;
+          const endNum = Math.min(startIndex + currentItems.length, filtered.length);
+          shownInfo.textContent = `Показано ${startNum}–${endNum} из ${filtered.length}`;
+        }
+      }
+
+      if (countDisplay) {
+        if (filtered.length === 0) {
+          countDisplay.textContent = 'Книги не найдены';
+        } else {
+          countDisplay.innerHTML = `Найдено <strong>${filtered.length}</strong> шедевров`;
+        }
+      }
+
+      // 5. Обработка пустого состояния
+      let emptyBlock = document.getElementById('catalog-empty-state');
       if (filtered.length === 0) {
-        countDisplay.textContent = 'Книги не найдены';
-      } else {
-        countDisplay.innerHTML = `Показано <strong>${currentItems.length}</strong> из <strong>${filtered.length}</strong> шедевров (Страница <strong>${currentPage}</strong> из <strong>${totalPages}</strong>)`;
+        if (!emptyBlock) {
+          emptyBlock = document.createElement('div');
+          emptyBlock.id = 'catalog-empty-state';
+          emptyBlock.className = 'col-12 text-center py-5';
+          emptyBlock.innerHTML = `
+            <div class="p-4 bg-white rounded-3 shadow-sm border">
+              <span class="fs-1 d-block mb-3">🔍</span>
+              <h3 class="h5 fw-bold mb-2">Ничего не найдено</h3>
+              <p class="text-muted small mb-3">По вашему запросу книги не найдены. Попробуйте изменить параметры поиска или жанр.</p>
+              <button type="button" class="btn btn-gold btn-sm px-4" id="reset-filters-btn">Сбросить фильтры</button>
+            </div>
+          `;
+          catalogGrid.appendChild(emptyBlock);
+          document.getElementById('reset-filters-btn')?.addEventListener('click', () => {
+            if (searchInput) searchInput.value = '';
+            if (genreSelect) genreSelect.value = 'all';
+            currentPage = 1;
+            render(true, true);
+          });
+        }
+        emptyBlock.style.display = 'block';
+      } else if (emptyBlock) {
+        emptyBlock.style.display = 'none';
       }
-    }
 
-    // 5. Обработка пустого состояния
-    let emptyBlock = document.getElementById('catalog-empty-state');
-    if (filtered.length === 0) {
-      if (!emptyBlock) {
-        emptyBlock = document.createElement('div');
-        emptyBlock.id = 'catalog-empty-state';
-        emptyBlock.className = 'col-12 text-center py-5';
-        emptyBlock.innerHTML = `
-          <div class="p-4 bg-white rounded-3 shadow-sm border">
-            <span class="fs-1 d-block mb-3">🔍</span>
-            <h3 class="h5 fw-bold mb-2">Ничего не найдено</h3>
-            <p class="text-muted small mb-3">По вашему запросу книги не найдены. Попробуйте изменить параметры поиска или жанр.</p>
-            <button type="button" class="btn btn-gold btn-sm px-4" id="reset-filters-btn">Сбросить фильтры</button>
-          </div>
-        `;
-        catalogGrid.appendChild(emptyBlock);
-        document.getElementById('reset-filters-btn')?.addEventListener('click', () => {
-          if (searchInput) searchInput.value = '';
-          if (genreSelect) genreSelect.value = 'all';
-          currentPage = 1;
-          render();
-        });
+      // 6. Построение кнопок пагинации: «‹», номера, «›»
+      renderPagination(totalPages, filtered.length);
+
+      if (shouldScroll) {
+        scrollToCatalog();
       }
-      emptyBlock.style.display = 'block';
-    } else if (emptyBlock) {
-      emptyBlock.style.display = 'none';
-    }
+    };
 
-    // 6. Построение кнопок пагинации
-    renderPagination(totalPages, filtered.length);
+    // Плавное затухание карточек при переключении страниц
+    if (withFade && !isReducedMotion && !isInitialLoad) {
+      catalogGrid.classList.add('is-fading');
+      setTimeout(() => {
+        updateDOM();
+        catalogGrid.classList.remove('is-fading');
+      }, 180);
+    } else {
+      updateDOM();
+    }
   }
 
+  // Построение пагинации Bootstrap: «‹», номера, «›», текущая страница активна
   function renderPagination(totalPages, totalItems) {
     if (!paginationList || !paginationNav) return;
 
@@ -272,15 +417,14 @@ function initLiveCatalogFilter() {
     paginationNav.style.display = '';
     paginationList.innerHTML = '';
 
-    // Кнопка «Назад»
+    // Кнопка «‹» (Назад)
     const prevLi = document.createElement('li');
     prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
-    prevLi.innerHTML = `<button class="page-link" type="button" aria-label="Предыдущая страница">&laquo; Назад</button>`;
+    prevLi.innerHTML = `<button class="page-link" type="button" aria-label="Предыдущая страница" ${currentPage === 1 ? 'tabindex="-1" aria-disabled="true"' : ''}>&lsaquo;</button>`;
     if (currentPage > 1) {
       prevLi.querySelector('button').addEventListener('click', () => {
         currentPage--;
-        render();
-        scrollToCatalog();
+        render(true, true, true);
       });
     }
     paginationList.appendChild(prevLi);
@@ -297,22 +441,20 @@ function initLiveCatalogFilter() {
       } else {
         pageBtn.addEventListener('click', () => {
           currentPage = i;
-          render();
-          scrollToCatalog();
+          render(true, true, true);
         });
       }
       paginationList.appendChild(pageLi);
     }
 
-    // Кнопка «Вперёд»
+    // Кнопка «›» (Вперёд)
     const nextLi = document.createElement('li');
     nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
-    nextLi.innerHTML = `<button class="page-link" type="button" aria-label="Следующая страница">Вперёд &raquo;</button>`;
+    nextLi.innerHTML = `<button class="page-link" type="button" aria-label="Следующая страница" ${currentPage === totalPages ? 'tabindex="-1" aria-disabled="true"' : ''}>&rsaquo;</button>`;
     if (currentPage < totalPages) {
       nextLi.querySelector('button').addEventListener('click', () => {
         currentPage++;
-        render();
-        scrollToCatalog();
+        render(true, true, true);
       });
     }
     paginationList.appendChild(nextLi);
@@ -321,27 +463,33 @@ function initLiveCatalogFilter() {
   function scrollToCatalog() {
     const target = document.getElementById('catalog-search') || catalogGrid;
     if (target) {
-      const y = target.getBoundingClientRect().top + window.pageYOffset - 100;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      const y = target.getBoundingClientRect().top + window.pageYOffset - 90;
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
     }
   }
+
+  // Поддержка кнопок браузера «Назад» и «Вперёд» (popstate)
+  window.addEventListener('popstate', () => {
+    readParamsFromURL();
+    render(false, false, true);
+  });
 
   // Привязка слушателей поиска и фильтров
   if (searchInput) {
     searchInput.addEventListener('input', () => {
       currentPage = 1;
-      render();
+      render(true, false, false);
     });
   }
   if (genreSelect) {
     genreSelect.addEventListener('change', () => {
       currentPage = 1;
-      render();
+      render(true, false, true);
     });
   }
   if (sortSelect) {
     sortSelect.addEventListener('change', () => {
-      render();
+      render(true, false, true);
     });
   }
 
@@ -350,19 +498,16 @@ function initLiveCatalogFilter() {
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
       currentPage = 1;
-      render();
+      render(true, false, true);
     });
   }
 
-  // Проверка URL параметров (например ?genre=classic)
-  const urlParams = new URLSearchParams(window.location.search);
-  const genreParam = urlParams.get('genre');
-  if (genreParam && genreSelect) {
-    genreSelect.value = genreParam;
-  }
+  // Считываем параметры URL при загрузке страницы
+  readParamsFromURL();
 
   // Первоначальный рендер
-  render();
+  render(false, false, false);
+  isInitialLoad = false;
 }
 
 /* ==========================================================================
@@ -725,4 +870,115 @@ function initBookDetailsModal() {
       }
     });
   }
+}
+
+
+/* ==========================================================================
+   9. Полоса прогресса прокрутки (Scroll Progress Bar)
+   ========================================================================== */
+function initScrollProgress() {
+  let bar = document.getElementById('scroll-progress-bar');
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'scroll-progress-bar';
+    bar.className = 'scroll-progress-bar';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.prepend(bar);
+  }
+
+  let ticking = false;
+
+  function update() {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = window.innerHeight || document.documentElement.clientHeight;
+    const maxScroll = scrollHeight - clientHeight;
+
+    if (maxScroll <= 15) {
+      bar.style.display = 'none';
+      ticking = false;
+      return;
+    }
+
+    bar.style.display = 'block';
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const progress = Math.min(1, Math.max(0, scrollTop / maxScroll));
+    bar.style.transform = `scaleX(${progress})`;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', update, { passive: true });
+  update();
+}
+
+/* ==========================================================================
+   10. Яндекс.Карты (Схема проезда на contacts.html)
+   ========================================================================== */
+function initContactsMap() {
+  const mapIframe = document.getElementById('yandex-map-iframe');
+  const placeholder = document.getElementById('map-placeholder');
+  if (!mapIframe || !placeholder) return;
+
+  function hidePlaceholder() {
+    placeholder.classList.add('is-hidden');
+    setTimeout(() => {
+      placeholder.style.display = 'none';
+    }, 400);
+  }
+
+  mapIframe.addEventListener('load', hidePlaceholder);
+  // Запасной таймер
+  setTimeout(hidePlaceholder, 3500);
+}
+
+/* ==========================================================================
+   11. Плавное появление блоков при прокрутке (Scroll Reveal)
+   ========================================================================== */
+function initScrollReveal() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+  if (!('IntersectionObserver' in window)) {
+    return;
+  }
+
+  // Находим основные блоки для анимации
+  const sections = document.querySelectorAll('main > section:not(.hero-section), .contacts-map-card, #feedback-form, #meetingsAccordion, #contactsFaqAccordion');
+  const cardGrids = document.querySelectorAll('.row.g-4, .row.g-3, .features-grid');
+
+  sections.forEach(section => {
+    section.classList.add('reveal');
+  });
+
+  cardGrids.forEach(grid => {
+    const items = grid.querySelectorAll(':scope > [class*="col"], :scope > .book-item-col, :scope > .card');
+    items.forEach((item, index) => {
+      item.classList.add('reveal');
+      // Задержка по очереди (stagger) для элементов одной сетки
+      const delay = (index % 6) * 0.08;
+      item.style.transitionDelay = `${delay}s`;
+    });
+  });
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
 }

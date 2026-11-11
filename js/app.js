@@ -482,13 +482,17 @@ function showTicketModal(data) {
    ========================================================================== */
 function initBackToTop() {
   let btn = document.querySelector('.back-to-top-btn');
+  const planeSvg = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="plane-icon" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z" fill="rgba(255, 255, 255, 0.25)"/></svg>`;
+
   if (!btn) {
     btn = document.createElement('button');
     btn.className = 'back-to-top-btn';
     btn.setAttribute('aria-label', 'Вернуться наверх страницы');
     btn.setAttribute('title', 'Наверх');
-    btn.innerHTML = '↑';
+    btn.innerHTML = planeSvg;
     document.body.appendChild(btn);
+  } else if (!btn.querySelector('.plane-icon')) {
+    btn.innerHTML = planeSvg;
   }
 
   window.addEventListener('scroll', () => {

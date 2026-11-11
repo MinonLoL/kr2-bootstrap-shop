@@ -950,18 +950,19 @@ textarea:focus-visible {
   font-size: 1.1rem;
 }
 
-/* Кнопка «Наверх» (поднята выше, с белой обводкой и бумажным самолётиком) */
+/* Кнопка «Наверх» (белая обводка, самолётик смотрит ровно вверх) */
 .back-to-top-btn {
   position: fixed;
   bottom: 36px;
   right: 28px;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background: #0f172a;
   color: #ffffff;
   border: 2px solid #ffffff !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 14px rgba(255, 255, 255, 0.25);
+  outline: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 255, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -974,9 +975,10 @@ textarea:focus-visible {
 }
 
 .back-to-top-btn .plane-icon {
-  width: 22px;
-  height: 22px;
-  transform: rotate(-45deg) translate(1px, -1px);
+  width: 24px;
+  height: 24px;
+  display: block;
+  transform: none; /* смотрит строго ровно вверх без наклона */
   transition: transform 0.25s ease;
 }
 
@@ -986,16 +988,19 @@ textarea:focus-visible {
   transform: translateY(0);
 }
 
-.back-to-top-btn:hover {
+.back-to-top-btn:hover,
+.back-to-top-btn:focus {
   background: var(--gb-gold);
+  border: 2px solid #ffffff !important;
   border-color: #ffffff !important;
   color: #ffffff;
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(217, 119, 6, 0.5), 0 0 16px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 28px rgba(217, 119, 6, 0.55), 0 0 18px rgba(255, 255, 255, 0.5);
 }
 
-.back-to-top-btn:hover .plane-icon {
-  transform: rotate(-45deg) translate(3px, -3px);
+.back-to-top-btn:hover .plane-icon,
+.back-to-top-btn:focus .plane-icon {
+  transform: translateY(-3px); /* взлетает строго вверх */
 }
 
 /* Подвал */

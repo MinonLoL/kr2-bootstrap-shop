@@ -482,16 +482,17 @@ function showTicketModal(data) {
    ========================================================================== */
 function initBackToTop() {
   let btn = document.querySelector('.back-to-top-btn');
-  const planeSvg = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="plane-icon" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z" fill="rgba(255, 255, 255, 0.25)"/></svg>`;
+  const planeSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="plane-icon" aria-hidden="true"><path d="M12 2L3 21L12 17Z" fill="rgba(255, 255, 255, 0.45)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 2L21 21L12 17Z" fill="#ffffff" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 2V17" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>`;
 
   if (!btn) {
     btn = document.createElement('button');
     btn.className = 'back-to-top-btn';
+    btn.setAttribute('type', 'button');
     btn.setAttribute('aria-label', 'Вернуться наверх страницы');
     btn.setAttribute('title', 'Наверх');
     btn.innerHTML = planeSvg;
     document.body.appendChild(btn);
-  } else if (!btn.querySelector('.plane-icon')) {
+  } else {
     btn.innerHTML = planeSvg;
   }
 

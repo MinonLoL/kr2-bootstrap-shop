@@ -352,7 +352,7 @@ textarea:focus-visible {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
-.navbar .nav-link:hover {
+.navbar .nav-link:not(.btn):hover {
   color: #fbbf24 !important;
 }
 
@@ -440,6 +440,79 @@ textarea:focus-visible {
 
 .bookmarks-btn:hover {
   transform: scale(1.05);
+}
+
+.bookmarks-btn:hover .bookmarks-badge {
+  background-color: #0f172a;
+  color: #fbbf24;
+}
+
+/* Высококонтрастные outline-кнопки (Подборки клуба, Список чтения и др.) */
+.navbar .btn-outline-warning,
+.btn-outline-warning {
+  border-color: #fbbf24 !important;
+  color: #fbbf24 !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.navbar .btn-outline-warning *,
+.btn-outline-warning * {
+  color: inherit !important;
+  transition: color 0.2s ease-in-out !important;
+}
+
+.navbar .btn-outline-warning::after,
+.btn-outline-warning::after {
+  border-top-color: #fbbf24 !important;
+  transition: border-color 0.2s ease-in-out !important;
+}
+
+/* Состояния: наведение, фокус, активность, открытое состояние выпадающего меню */
+.navbar .btn-outline-warning:hover,
+.navbar .btn-outline-warning:focus,
+.navbar .btn-outline-warning:active,
+.navbar .btn-outline-warning.active,
+.navbar .btn-outline-warning.show,
+.navbar .btn-outline-warning[aria-expanded="true"],
+.btn-outline-warning:hover,
+.btn-outline-warning:focus,
+.btn-outline-warning:active,
+.btn-outline-warning.active,
+.btn-outline-warning.show,
+.btn-outline-warning[aria-expanded="true"] {
+  background-color: #fbbf24 !important;
+  border-color: #fbbf24 !important;
+  color: #0f172a !important; /* Тёмный текст на золотом фоне с идеальной читаемостью */
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.45) !important;
+}
+
+.navbar .btn-outline-warning:hover *,
+.navbar .btn-outline-warning:focus *,
+.navbar .btn-outline-warning:active *,
+.navbar .btn-outline-warning.active *,
+.navbar .btn-outline-warning.show *,
+.navbar .btn-outline-warning[aria-expanded="true"] *,
+.btn-outline-warning:hover *,
+.btn-outline-warning:focus *,
+.btn-outline-warning:active *,
+.btn-outline-warning.active *,
+.btn-outline-warning.show *,
+.btn-outline-warning[aria-expanded="true"] * {
+  color: #0f172a !important;
+}
+
+.navbar .btn-outline-warning:hover::after,
+.navbar .btn-outline-warning:focus::after,
+.navbar .btn-outline-warning:active::after,
+.navbar .btn-outline-warning.show::after,
+.navbar .btn-outline-warning[aria-expanded="true"]::after,
+.btn-outline-warning:hover::after,
+.btn-outline-warning:focus::after,
+.btn-outline-warning:active::after,
+.btn-outline-warning.show::after,
+.btn-outline-warning[aria-expanded="true"]::after {
+  border-top-color: #0f172a !important;
 }
 
 .bookmarks-badge {
@@ -1216,12 +1289,12 @@ footer a:focus {
 }
 
 /* Высокий контраст золотистого текста в светлой и тёмной темах (WCAG AA) */
-[data-bs-theme="light"] a.text-warning,
-[data-bs-theme="light"] .text-warning:not(.badge) {
+[data-bs-theme="light"] a.text-warning:not(.btn),
+[data-bs-theme="light"] .text-warning:not(.badge):not(.btn) {
   color: #b45309 !important;
 }
 
-[data-bs-theme="dark"] a.text-warning,
-[data-bs-theme="dark"] .text-warning:not(.badge) {
+[data-bs-theme="dark"] a.text-warning:not(.btn),
+[data-bs-theme="dark"] .text-warning:not(.badge):not(.btn) {
   color: #fbbf24 !important;
 }

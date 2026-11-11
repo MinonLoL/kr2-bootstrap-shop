@@ -1071,6 +1071,44 @@ footer a:focus {
   scroll-margin-top: 80px;
 }
 
+/* Выпадающее меню «Подборки клуба» в футере */
+.footer-club-toggle {
+  color: rgba(248, 249, 250, 0.75) !important;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.footer-club-toggle:hover,
+.footer-club-toggle:focus,
+.footer-club-toggle[aria-expanded="true"] {
+  color: #fbbf24 !important;
+}
+
+.footer-club-menu {
+  background-color: #1e293b !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  min-width: 220px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  margin-bottom: 0.5rem;
+}
+
+.footer-club-menu .dropdown-item {
+  color: #cbd5e1 !important;
+  font-size: 0.875rem;
+  padding: 0.45rem 1rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.footer-club-menu .dropdown-item:hover,
+.footer-club-menu .dropdown-item:focus {
+  background-color: rgba(251, 191, 36, 0.15) !important;
+  color: var(--gb-gold) !important;
+}
+
 .topbar-contact-link {
   color: rgba(248, 249, 250, 0.9) !important;
   text-decoration: none;

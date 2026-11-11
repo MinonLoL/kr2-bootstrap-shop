@@ -687,7 +687,20 @@
             <li class="mb-2"><a href="index.html">Главная</a></li>
             <li class="mb-2"><a href="catalog.html">Каталог книг</a></li>
             <li class="mb-2"><a href="order.html">Встречи и запись</a></li>
-            <li class="mb-2"><a href="index.html#monthly-books">Клуб</a></li>
+            <li class="mb-2 dropup">
+              <a class="dropdown-toggle text-decoration-none footer-club-toggle" href="#" role="button" id="footerClubDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Подборки клуба">
+                Клуб
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark footer-club-menu shadow" aria-labelledby="footerClubDropdown">
+                <li><h6 class="dropdown-header text-warning fw-bold">Подборки клуба</h6></li>
+                <li><a class="dropdown-item" href="catalog.html?genre=classic">Золотая классика</a></li>
+                <li><a class="dropdown-item" href="catalog.html?genre=scifi">Научная фантастика</a></li>
+                <li><a class="dropdown-item" href="catalog.html?genre=dystopia">Антиутопии</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="order.html">Расписание встреч</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#quickOrderModal">Быстрая запись в клуб</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
         <div class="col-12 col-md-3">
